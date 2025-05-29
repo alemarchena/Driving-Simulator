@@ -107,4 +107,19 @@ public class Tablero : MonoBehaviour
     {
 
     }
+
+    public void MostrarLuzBaja(bool estado)
+    {
+
+    }
+
+    public void MostrarLuzAlta(bool estado)
+    {
+
+    }
+
+    public void MostrarCinturon(bool estado)
+    {
+
+    }
 }
