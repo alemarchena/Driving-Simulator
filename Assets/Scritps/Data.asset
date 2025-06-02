@@ -105,3 +105,7 @@ MonoBehaviour:
       parte: 3
       subParte: 5
     teclas: 09000000
+  - parteSubparte:
+      parte: 10
+      subParte: 0
+    teclas: 30010000

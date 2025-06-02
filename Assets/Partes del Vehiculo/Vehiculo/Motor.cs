@@ -11,6 +11,7 @@ public class Motor : Simulator
     [SerializeField] private float torqueMaximo = 2000f;
     [SerializeField] private float fuerzaMotor = 0;
     [SerializeField] Acelerador acelerador;
+    [SerializeField] Nitro nitro;
     [SerializeField] PalancaDeCambio palanca;
     [Space]
     [SerializeField] private float[] relacionesDeMarcha = { 3.5f, 2.2f, 1.5f, 1.0f, 0.85f, 0.7f }; // Para 6 marchas
@@ -95,7 +96,8 @@ public class Motor : Simulator
         else
         {
             //rpmActual = Mathf.Clamp(acelerador.GetAceleracion() * rpmMaxima * relacionMarcha, rpmMinima,rpmMaxima);
-            rpmActual = acelerador.GetAceleracion() * rpmMaxima * relacionMarcha;
+            
+            rpmActual = acelerador.GetAceleracion() * rpmMaxima * relacionMarcha ;
         }
 
         porcentajeRPM = rpmActual / rpmMaxima;
@@ -103,7 +105,9 @@ public class Motor : Simulator
         if (relacionMarcha == 0)
             fuerzaMotor = 0;
         else
-            fuerzaMotor = torqueMaximo * porcentajeRPM;
+            fuerzaMotor = (torqueMaximo * porcentajeRPM ) * nitro.GetNitroMult();
+
+        Debug.Log(nitro.GetNitroMult());
     }
 
     public float GetFuerzaMotor()
