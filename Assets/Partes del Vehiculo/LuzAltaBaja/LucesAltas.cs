@@ -23,7 +23,7 @@ public class LucesAltas : Simulator
         if (SePresionoLaTecla())
         {
             lucesAltasEncendidas = !lucesAltasEncendidas;
-            Tablero.instance.MostrarLuzAltaz(lucesAltasEncendidas);
+            Tablero.instance.MostrarLuzAlta(lucesAltasEncendidas);
         }
     }
 }

@@ -4,29 +4,29 @@ using UnityEngine;
 
 public class CinturonSeguridad : Simulator
 {
-    [SerializeField] private Creadores creadores;
-    private bool cinturonAbrochado = false;
-    public CinturonAbrochado {
-        get { return cinturonAbrochado;}
-    }
     [SerializeField] AudioClip clip;
-
-    private float tiempoTranscurrido = 0f;
-    [SerializeField]
-    float tiempoVerificador = 3f;
-
-    void Start()
-    {
-        AsignarCreador(creadores);
-        AsignarComandos();
-    }
-
-    public override void AsignarCreador(Creadores creador)
+    [SerializeField] private Creadores creador;
+    [SerializeField] float tiempoVerificador = 3f;
+    public override void AsignarCreador(Creadores creadores)
     {
         CreadoresSimulator = creador;
     }
+    private bool cinturonAbrochado = false;
+    public bool CinturonAbrochado 
+    {
+        get { return cinturonAbrochado;}
+    }
 
-    void Update()
+
+private float tiempoTranscurrido = 0f;
+
+void Start()
+{
+    AsignarCreador(creador);
+    AsignarComandos();
+}
+
+void Update()
 {
     if (SePresionoLaTecla())
     {
@@ -35,12 +35,11 @@ public class CinturonSeguridad : Simulator
     }
     tiempoTranscurrido += Time.deltaTime;
 
-    if (tiempoTranscurrido > tiempoVerificador) {
+    if (tiempoTranscurrido > tiempoVerificador)
+    {
         tiempoTranscurrido = 0f;
         //Disparar el sonido   
-        Debug.Log("Sonar.."); 
+        Debug.Log("Sonar..");
     }
-    }
-
-    
+}
 }
