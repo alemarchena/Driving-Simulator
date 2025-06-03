@@ -11,6 +11,7 @@ public class LucesAltas : Simulator
     {
         AsignarCreador(creadores);
         AsignarComandos();
+        Tablero.instance.MostrarLuzAlta(lucesAltasEncendidas);
     }
 
     public override void AsignarCreador(Creadores creador)

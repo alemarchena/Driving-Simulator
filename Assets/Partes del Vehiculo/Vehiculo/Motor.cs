@@ -106,8 +106,6 @@ public class Motor : Simulator
             fuerzaMotor = 0;
         else
             fuerzaMotor = (torqueMaximo * porcentajeRPM ) * nitro.GetNitroMult();
-
-        Debug.Log(nitro.GetNitroMult());
     }
 
     public float GetFuerzaMotor()

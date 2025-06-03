@@ -10,10 +10,12 @@ public class Tablero : MonoBehaviour
     [SerializeField] GameObject balizas;
     [SerializeField] GameObject giroIzquierdo;
     [SerializeField] GameObject giroDerecho;
+    [SerializeField] GameObject luzAlta;
 
     [Space]
-    [Header("Freno de Mano")]
+    [Header("Freno de Mano y Cinturon")]
     [SerializeField] GameObject frenoDeMano;
+    [SerializeField] GameObject cinturon;
     [Space]
     [Header("Cambios del Vehículo")]
     [SerializeField] GameObject cambioNeutro;
@@ -115,11 +117,11 @@ public class Tablero : MonoBehaviour
 
     public void MostrarLuzAlta(bool estado)
     {
-
+        luzAlta.SetActive(estado);
     }
 
     public void MostrarCinturon(bool estado)
     {
-
+        cinturon.SetActive(estado);
     }
 }

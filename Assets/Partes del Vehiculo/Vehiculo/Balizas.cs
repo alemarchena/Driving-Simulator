@@ -14,6 +14,7 @@ public class Balizas : Simulator
     {
         AsignarCreador(creadores);
         AsignarComandos();
+        Tablero.instance.MostrarBalizas(estadoLuz);
     }
     public override void AsignarCreador(Creadores creador)
     {

@@ -10,7 +10,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1265204167313215750}
   - component: {fileID: 2700494870265923178}
-  - component: {fileID: 3845187190189140652}
   - component: {fileID: 232733131937241047}
   m_Layer: 0
   m_Name: CamaraLateralDerecha
@@ -85,14 +84,6 @@ Camera:
   m_OcclusionCulling: 1
   m_StereoConvergence: 10
   m_StereoSeparation: 0.022
---- !u!81 &3845187190189140652
-AudioListener:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 81269591138374767}
-  m_Enabled: 1
 --- !u!114 &232733131937241047
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -325,7 +316,6 @@ GameObject:
   m_Component:
   - component: {fileID: 4716173016488933961}
   - component: {fileID: 3484498251225297630}
-  - component: {fileID: 8996478843108039863}
   - component: {fileID: 4832445833681377119}
   m_Layer: 0
   m_Name: CamaraLateralIzquierda
@@ -400,14 +390,6 @@ Camera:
   m_OcclusionCulling: 1
   m_StereoConvergence: 10
   m_StereoSeparation: 0.022
---- !u!81 &8996478843108039863
-AudioListener:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4274202452320851952}
-  m_Enabled: 1
 --- !u!114 &4832445833681377119
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -462,7 +444,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1651648300387690253}
   - component: {fileID: 256202575144806670}
-  - component: {fileID: 3603851644665216696}
   - component: {fileID: 9057056144989087154}
   m_Layer: 0
   m_Name: CamaraCentral
@@ -537,14 +518,6 @@ Camera:
   m_OcclusionCulling: 1
   m_StereoConvergence: 10
   m_StereoSeparation: 0.022
---- !u!81 &3603851644665216696
-AudioListener:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6035331225259197230}
-  m_Enabled: 1
 --- !u!114 &9057056144989087154
 MonoBehaviour:
   m_ObjectHideFlags: 0

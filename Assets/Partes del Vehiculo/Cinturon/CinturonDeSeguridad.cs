@@ -24,6 +24,7 @@ void Start()
 {
     AsignarCreador(creador);
     AsignarComandos();
+    Tablero.instance.MostrarCinturon(cinturonAbrochado);
 }
 
 void Update()
@@ -31,7 +32,7 @@ void Update()
     if (SePresionoLaTecla())
     {
         cinturonAbrochado = !cinturonAbrochado;
-        Tablero.instance.MostrarCinturon(!cinturonAbrochado);
+        Tablero.instance.MostrarCinturon(cinturonAbrochado);
     }
     tiempoTranscurrido += Time.deltaTime;
 
