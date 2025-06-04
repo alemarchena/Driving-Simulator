@@ -39,8 +39,7 @@ void Update()
     if (tiempoTranscurrido > tiempoVerificador)
     {
         tiempoTranscurrido = 0f;
-        //Disparar el sonido   
-        Debug.Log("Sonar..");
+        if(clip != null) SoundManager.Instance.PlaySoundGlobal(clip,SoundManager.ModePlay.playOneShoot,true);
     }
 }
 }

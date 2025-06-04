@@ -41,8 +41,8 @@ public class Freno : MonoBehaviour
     }
     private void Start()
     {
-        teclasComandoFreno = ControladorComandos.instance.AsignaTeclas(parteSubparteFreno);
-        teclasComandoFrenoMano = ControladorComandos.instance.AsignaTeclas(parteSubparteFrenoMano);
+    teclasComandoFreno = ControladorComandos.instance.AsignaTeclas(parteSubparteFreno);
+    teclasComandoFrenoMano = ControladorComandos.instance.AsignaTeclas(parteSubparteFrenoMano);
     }
 
     private void Update()

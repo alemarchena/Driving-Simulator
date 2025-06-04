@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+using static SoundManager;
 
 [RequireComponent(typeof(AudioSource))]
 public class Bocina : MonoBehaviour
@@ -23,7 +24,6 @@ public class Bocina : MonoBehaviour
     private AudioClip clipSecreto;
 
     private ModoBocina modoActual = ModoBocina.Normal;
-    private AudioSource audioSource;
     bool sePresionoTeclaNormal;
     bool sePresionoTeclaSecreta;
     private void Awake()
@@ -31,9 +31,6 @@ public class Bocina : MonoBehaviour
         // Asegura creador por defecto
         creadores = Creadores.Sabatini_Cialone_Santino;
 
-        // Garantiza que haya un AudioSource y que no reproduzca al arrancar
-        audioSource = GetComponent<AudioSource>() ?? gameObject.AddComponent<AudioSource>();
-        audioSource.playOnAwake = false;
     }
 
     private void Start()
@@ -92,7 +89,6 @@ public class Bocina : MonoBehaviour
         {
             return;
         }
-
-        audioSource.PlayOneShot(clip);
+        SoundManager.Instance.PlaySoundGlobal(clip, ModePlay.playOneShoot, false);
     }
 }

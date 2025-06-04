@@ -50,10 +50,6 @@ public class Acelerador : Simulator
             if (aceleracion < MinAceleracion)
                 aceleracion = MinAceleracion;
         }
-        //if (valorAnterior != aceleracion)
-        //{
-        //    Debug.Log($"[DEBUG] Aceleracion: {aceleracion:F2}");
-        //}
     }
     public override void Describir()
     {
