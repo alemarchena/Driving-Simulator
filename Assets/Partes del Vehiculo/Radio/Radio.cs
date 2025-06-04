@@ -44,8 +44,8 @@ public class Radio : Simulator
         }
 
 
-        SoundManager.Instance.PlaySoundGlobal( anteriorAudioClip, proximoAudioClip, 
-            SoundManager.ModePlay.play, true);
+        ControladorSonidos.Instance.PlaySoundGlobal( anteriorAudioClip, proximoAudioClip, 
+            ControladorSonidos.ModePlay.play, true);
         
         Escuchar();
     }

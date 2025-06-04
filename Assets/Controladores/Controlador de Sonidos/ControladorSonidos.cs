@@ -1,9 +1,9 @@
 using UnityEngine;
 using System.Collections.Generic;
 
-public class SoundManager : MonoBehaviour
+public class ControladorSonidos : MonoBehaviour
 {
-    public static SoundManager Instance;
+    public static ControladorSonidos Instance;
     public enum ModePlay { play,playOneShoot}
      
     public int initialPoolSize = 1; 

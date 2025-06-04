@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
-using static SoundManager;
+using static ControladorSonidos;
 
 [RequireComponent(typeof(AudioSource))]
 public class Bocina : MonoBehaviour
@@ -89,6 +89,6 @@ public class Bocina : MonoBehaviour
         {
             return;
         }
-        SoundManager.Instance.PlaySoundGlobal(clip, ModePlay.playOneShoot, false);
+        ControladorSonidos.Instance.PlaySoundGlobal(clip, ModePlay.playOneShoot, false);
     }
 }
