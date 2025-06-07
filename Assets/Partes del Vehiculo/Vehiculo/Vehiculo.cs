@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Xml.Serialization;
 using UnityEditor;
 using UnityEngine;
 
@@ -13,6 +14,8 @@ public class Vehiculo : Simulator
     [SerializeField] FuelTank tanqueCombustible;
 
     public static Vehiculo instance;
+    [SerializeField] List<Rueda> listaRuedas;
+
 
     [Header("Giro del vehículo")]
     [SerializeField] private float intensidadGiro = 2.5f; // Cuánto gira al máximo
@@ -26,6 +29,7 @@ public class Vehiculo : Simulator
 
     [Header("Entorno")]
     [SerializeField] private float coeficienteFriccion = 0.1f; // ajustable en el Inspector
+    [SerializeField] private float coeficienteFriccionActual;
 
     private Rigidbody rb;
     private float masaOriginal;
@@ -38,13 +42,30 @@ public class Vehiculo : Simulator
     {
         instance = this;
     }
+
+   
     private void Start()
     {
         AsignarCreador(creador);
         rb = GetComponent<Rigidbody>();
         masaOriginal = rb.mass;
+        coeficienteFriccionActual = coeficienteFriccion;
         VerificarSiTieneMotor();
+        AsignaRuedas();
     }
+
+    private void AsignaRuedas()
+    {
+        if (listaRuedas.Count <= 0) {
+            Debug.LogError("Falta asignar las ruedas al vehículo");
+            return;
+        }
+        foreach (Rueda rueda in listaRuedas)
+        {
+            rueda.coeficienteFriccion = coeficienteFriccionActual;
+        }
+    }
+
     private void Update()
     {
         if (motor.ModificadorDeMasa)
@@ -55,9 +76,33 @@ public class Vehiculo : Simulator
         else
         {
                 rb.mass = masaOriginal;
-
         }
+
+        VerificaCoeficienteFriccionRuedas();
     }
+
+    private void VerificaCoeficienteFriccionRuedas()
+    {
+        float totalCoeficiente = coeficienteFriccion;
+        int cantidadRuedasConCoeficiente = 0;
+
+        foreach (Rueda rueda in listaRuedas)
+        {
+            if(rueda.TieneCoeficienteFriccion)
+            {
+                totalCoeficiente += rueda.coeficienteFriccion;
+            }else
+            {
+                totalCoeficiente += coeficienteFriccion;
+            }
+            cantidadRuedasConCoeficiente += 1;
+        }
+       
+        totalCoeficiente /= cantidadRuedasConCoeficiente;
+        coeficienteFriccionActual = totalCoeficiente;
+        
+    }
+
     private void VerificarSiTieneMotor()
     {
         if(motor == null)
@@ -116,7 +161,7 @@ public class Vehiculo : Simulator
             // Simular resistencia/fricción pasiva cuando no se frena
             Vector3 velocidadActual = rb.linearVelocity;
             Vector3 direccionFriccion = -velocidadActual.normalized;
-            float fuerzaFriccion = velocidadActual.magnitude * coeficienteFriccion;
+            float fuerzaFriccion = velocidadActual.magnitude * coeficienteFriccionActual;
 
             rb.AddForce(direccionFriccion * fuerzaFriccion * rb.mass, ForceMode.Force);
         }

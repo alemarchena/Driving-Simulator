@@ -1,47 +1,33 @@
 using UnityEngine;
 
-public class Rueda : Simulator
+public class Rueda : MonoBehaviour
 {
-    [SerializeField] GameObject RuedaSana;
-    [SerializeField] GameObject RuedaPinchada;
+    public float coeficienteFriccion; 
 
-    [SerializeField] Creadores creadores = Creadores.Castro_Corradi_Maximiliano;
-
-    public bool estaPinchada = false;    // Estado actual de la rueda
-
-    private void Start()
+    [SerializeField] private bool tieneCoeficienteFriccion = false;
+    public bool TieneCoeficienteFriccion
     {
-        AsignarCreador(creadores);
-        AsignarComandos();
-    }
-    void Update()
-    {
-        if (SePresionoLaTecla())
-        {
-            CambiarEstadoRueda();
-        }
+        get { return tieneCoeficienteFriccion; }
     }
 
-    void CambiarEstadoRueda()
+    private void OnTriggerEnter(Collider other)
     {
-        estaPinchada = !estaPinchada;
-
-        if (estaPinchada)
-        {
-            RuedaPinchada.SetActive(true);
-            RuedaSana.SetActive(false);
-        }
-        else
-        {
-            RuedaPinchada.SetActive(false);
-            RuedaSana.SetActive(true);
-        }
+        other.gameObject.TryGetComponent(out DeteccionCalle deteccioncalle);
             
+        if( deteccioncalle != null)
+        {
+            coeficienteFriccion = deteccioncalle.FriccionDinamicaMaterial();
+            tieneCoeficienteFriccion = true;
+        }
     }
-
-    public override void AsignarCreador(Creadores creadores)
+    private void OnTriggerExit(Collider other)
     {
-       CreadoresSimulator = creadores;
-    }
-}
+        other.gameObject.TryGetComponent(out DeteccionCalle deteccioncalle);
 
+        if (deteccioncalle != null)
+        {
+            tieneCoeficienteFriccion = false;
+        }
+    }
+
+}
