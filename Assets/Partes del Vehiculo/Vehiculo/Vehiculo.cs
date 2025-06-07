@@ -10,6 +10,7 @@ public class Vehiculo : Simulator
     [SerializeField] Motor motor;
     [SerializeField] Freno freno;
     [SerializeField] Volante volante;
+    [SerializeField] FuelTank tanqueCombustible;
 
     public static Vehiculo instance;
 
@@ -20,13 +21,14 @@ public class Vehiculo : Simulator
 
     [Header("Giro de las agujas")]
     [SerializeField] private float velocidadMaxima = 200f;
-    [SerializeField] private float anguloMin = -20f; 
-    [SerializeField] private float anguloMax= 200f;
+    [SerializeField] private float anguloMin = -20f;
+    [SerializeField] private float anguloMax = 200f;
 
     [Header("Entorno")]
     [SerializeField] private float coeficienteFriccion = 0.1f; // ajustable en el Inspector
 
     private Rigidbody rb;
+    private float masaOriginal;
 
     private void Awake()
     {
@@ -36,9 +38,22 @@ public class Vehiculo : Simulator
     {
         AsignarCreador(creador);
         rb = GetComponent<Rigidbody>();
+        masaOriginal = rb.mass;
         VerificarSiTieneMotor();
     }
+    private void Update()
+    {
+        if (motor.ModificadorDeMasa)
+        {
+            rb.mass = masaOriginal + masaOriginal * motor.PorcentajeModificadoDeMasa / 100;
+            rb.angularDamping = motor.PorcentajeModificadoDeMasa;
+        }
+        else
+        {
+                rb.mass = masaOriginal;
 
+        }
+    }
     private void VerificarSiTieneMotor()
     {
         if(motor == null)
@@ -49,15 +64,21 @@ public class Vehiculo : Simulator
     }
     private void FixedUpdate()
     {
-        if(!VerificaFrenoMano())
+        if (motor.MotorEncendido)
         {
-            rb.AddForce(transform.forward * motor.FuerzaMotor, ForceMode.Force);
 
-            VerificaFrenaje();
+            tanqueCombustible.ConsumeFuel(motor.ConsumoCombustible);
 
-            VerificaGiroVolante();
+            if(!VerificaFrenoMano())
+            {
+                rb.AddForce(transform.forward * motor.FuerzaMotor, ForceMode.Force);
 
-            Tablero.instance.MostrarVelocidad(CalculaAnguloVelocidad());
+                VerificaFrenaje();
+
+                VerificaGiroVolante();
+
+                Tablero.instance.MostrarVelocidad(CalculaAnguloVelocidad());
+            }
         }
 
     }

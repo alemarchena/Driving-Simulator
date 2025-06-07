@@ -121,3 +121,7 @@ MonoBehaviour:
       parte: 8
       subParte: 0
     teclas: 63000000
+  - parteSubparte:
+      parte: 17
+      subParte: 0
+    teclas: 1b000000

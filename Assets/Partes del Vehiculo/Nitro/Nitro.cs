@@ -13,7 +13,7 @@ public class Nitro : Simulator
     // Estados
     private bool nitroActivo = false;
     private bool enCooldown = false;
-
+    float nitroActual=1f;
     private void Awake()
     {
         creadores = Creadores.Diaz_Corvalan_Matias_Federico;
@@ -43,15 +43,13 @@ public class Nitro : Simulator
     private IEnumerator NitroBoost()
     {
         nitroActivo = true;
-        multiplicadorNitro = 2f;
-        Debug.Log("[DEBUG] Nitro activado: multiplicador = 2");
+        nitroActual = nitroActual * multiplicadorNitro;
 
         yield return new WaitForSeconds(nitroDuracion);
 
-        multiplicadorNitro = 1f;
+        nitroActual = 1f;
         nitroActivo = false;
         enCooldown = true;
-        Debug.Log("[DEBUG] Nitro terminado: multiplicador = 1. Cooldown iniciado");
 
         yield return new WaitForSeconds(cooldownDuracion);
 
@@ -69,6 +67,6 @@ public class Nitro : Simulator
     /// </summary>
     public float GetNitroMult()
     {
-        return multiplicadorNitro;
+        return nitroActual;
     }
 }

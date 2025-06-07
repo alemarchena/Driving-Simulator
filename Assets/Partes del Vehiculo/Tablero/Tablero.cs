@@ -31,6 +31,7 @@ public class Tablero : MonoBehaviour
     [Header("Agujas del Tablero del Vehículo")]
     [SerializeField] GameObject agujaVelocimetro;
     [SerializeField] GameObject agujaRPM;
+    [SerializeField] GameObject agujaCombustible;
 
     private void Awake()
     {
@@ -104,7 +105,10 @@ public class Tablero : MonoBehaviour
         Debug.Log("Tema de radio " + nombre);
     }
 
-
+    public void MostrarCombustible(float angulo)
+    {
+        agujaCombustible.transform.localRotation = Quaternion.Euler(0f, 0f, angulo);
+    }
     public void MostrarMensajeAlConductor(string mensaje)
     {
 

@@ -47,7 +47,8 @@ public class ParteSubParte
         RuedaAuxilio,
         Tanque,
         Volante,
-        FrenoMano
+        FrenoMano,
+        Motor
     }
 
     /// <summary>

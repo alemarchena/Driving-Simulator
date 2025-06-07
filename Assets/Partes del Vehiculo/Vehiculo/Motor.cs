@@ -1,4 +1,6 @@
 using System;
+using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class Motor : Simulator
@@ -13,11 +15,33 @@ public class Motor : Simulator
     [SerializeField] Acelerador acelerador;
     [SerializeField] Nitro nitro;
     [SerializeField] PalancaDeCambio palanca;
+    [SerializeField] float consumoCombustible = 0.01f;
+
+    [Space]
+    [Header("Encendido del motor")]
+    [SerializeField] ParteSubParte parteSubParteArranqueMotor;
+    [SerializeField] List<KeyCode> teclasComandoArranqueMotor = new List<KeyCode>();
+    bool sePresionoTeclaArranque;
+
+
     [Space]
     [SerializeField] private float[] relacionesDeMarcha = { 3.5f, 2.2f, 1.5f, 1.0f, 0.85f, 0.7f }; // Para 6 marchas
+    
+    [Space]
     [SerializeField] private float relacionRetroceso = -3.0f;
+    [Tooltip("Aumento un porcentaje de la masa del vehículo cuando está en reversa")]
+    [SerializeField] float porcentajeModificadorMasaAngularDamping = 20;
+    public float PorcentajeModificadoDeMasa
+    {
+        get { return porcentajeModificadorMasaAngularDamping; }
+    }
     private float porcentajeRPM;
     private bool motorEncendido;
+
+    private bool modificadorDeMasa = false;
+    public bool ModificadorDeMasa{
+        get{ return modificadorDeMasa; }
+    }
 
     public bool MotorEncendido
     {
@@ -39,10 +63,44 @@ public class Motor : Simulator
     {
         get { return rpmMaxima; }
     }
+   
+
     private void Start()
     {
         AsignarCreador(creadores);
         VerificaSiTieneAcelerador();
+        teclasComandoArranqueMotor = ControladorComandos.instance.AsignaTeclas(parteSubParteArranqueMotor);
+    }
+
+
+    private void Update()
+    {
+        ActualizaFuerzaMotor();
+
+        sePresionoTeclaArranque = false;
+
+        foreach (KeyCode ki in teclasComandoArranqueMotor)
+        {
+            if (Input.GetKeyDown(ki))
+            {
+                sePresionoTeclaArranque = true;
+                break;
+            }
+        }
+
+        if (sePresionoTeclaArranque)
+        {
+            motorEncendido = !motorEncendido;
+        }
+
+
+        modificadorDeMasa = palanca.MarchaActual == ParteSubParte.SubParte.Reversa ? true: false ;
+        
+    }
+
+    public float ConsumoCombustible
+    {
+        get { return consumoCombustible * ( rpmActual / ( rpmMaxima * 10000 )); }
     }
     private void VerificaSiTieneAcelerador()
     {
@@ -62,10 +120,7 @@ public class Motor : Simulator
     {
         CreadoresSimulator = creadores;
     }
-    private void Update()
-    {
-        ActualizaFuerzaMotor();
-    }
+  
 
     private float ObtenerRelacionDeMarcha()
     {
@@ -91,13 +146,11 @@ public class Motor : Simulator
             rpmActual = Mathf.Clamp(acelerador.GetAceleracion() * rpmMaxima * 1, rpmMinima, rpmMaxima);
         }else if (relacionMarcha < 0)
         {
-            rpmActual = acelerador.GetAceleracion() * rpmMaxima * relacionMarcha;
+            rpmActual = acelerador.GetAceleracion() * rpmMaxima;
         }
         else
         {
-            //rpmActual = Mathf.Clamp(acelerador.GetAceleracion() * rpmMaxima * relacionMarcha, rpmMinima,rpmMaxima);
-            
-            rpmActual = acelerador.GetAceleracion() * rpmMaxima * relacionMarcha ;
+            rpmActual = acelerador.GetAceleracion() * rpmMaxima  ;
         }
 
         porcentajeRPM = rpmActual / rpmMaxima;
@@ -105,7 +158,9 @@ public class Motor : Simulator
         if (relacionMarcha == 0)
             fuerzaMotor = 0;
         else
-            fuerzaMotor = (torqueMaximo * porcentajeRPM ) * nitro.GetNitroMult();
+        {
+            fuerzaMotor = (torqueMaximo * porcentajeRPM) * relacionMarcha * nitro.GetNitroMult();
+        }
     }
 
     public float GetFuerzaMotor()
