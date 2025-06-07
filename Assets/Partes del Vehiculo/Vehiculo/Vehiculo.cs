@@ -30,6 +30,10 @@ public class Vehiculo : Simulator
     private Rigidbody rb;
     private float masaOriginal;
 
+    private float velocidadActual;
+    public float VelocidadActual{
+        get { return velocidadActual; }    
+    }
     private void Awake()
     {
         instance = this;
@@ -152,11 +156,13 @@ public class Vehiculo : Simulator
 
         // Interpola entre 0 (ángulo base) y el ángulo máximo
         float angulo = Mathf.Lerp(anguloMin, anguloMax, t) * -1;
+        
+        velocidadActual = Mathf.RoundToInt(Mathf.Abs(velocidad));
 
         return angulo;
     }
 
-   
+ 
     public override void AsignarCreador(Creadores creadores)
     {
         CreadoresSimulator = creadores;
