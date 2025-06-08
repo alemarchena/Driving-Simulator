@@ -11,5 +11,5 @@ AssetOrigin:
   productId: 74214
   packageName: Brick House
   packageVersion: 1.4
-  assetPath: Assets/Brick_House/Materials/brick_house.mat
+  assetPath: Assets/_Brick_House/Materials/brick_house.mat
   uploadId: 622662
