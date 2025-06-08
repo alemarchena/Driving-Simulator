@@ -37,7 +37,7 @@ public class DeteccionCalle : MonoBehaviour
 
         if (vehiculo)
         {
-            Debug.Log("Estas en un piso de " + superficieActual + materialFisico.dynamicFriction);
+            //Debug.Log("Estas en un piso de " + superficieActual + materialFisico.dynamicFriction);
         }
     }
 }
