@@ -2,9 +2,13 @@ using UnityEngine;
 
 public class Rueda : MonoBehaviour
 {
-    public float coeficienteFriccion; 
+    public float coeficienteFriccion;
+    [SerializeField] private bool enElAire = true;
+    public bool EnElAire {
+        get { return enElAire; } 
+    }
 
-    [SerializeField] private bool tieneCoeficienteFriccion = false;
+[SerializeField] private bool tieneCoeficienteFriccion = false;
     public bool TieneCoeficienteFriccion
     {
         get { return tieneCoeficienteFriccion; }
@@ -19,6 +23,18 @@ public class Rueda : MonoBehaviour
             coeficienteFriccion = deteccioncalle.FriccionDinamicaMaterial();
             tieneCoeficienteFriccion = true;
         }
+        if (other != null)
+        {
+            enElAire = false;
+        }
+    }
+
+    private void OnTriggerStay(Collider other)
+    {
+        if (other != null)
+        {
+            enElAire = false;
+        }
     }
     private void OnTriggerExit(Collider other)
     {
@@ -28,6 +44,10 @@ public class Rueda : MonoBehaviour
         {
             tieneCoeficienteFriccion = false;
         }
-    }
 
+        if (other != null)
+        {
+            enElAire = true;
+        }
+    }
 }
