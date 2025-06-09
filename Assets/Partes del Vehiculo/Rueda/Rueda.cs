@@ -22,20 +22,22 @@ public class Rueda : MonoBehaviour
         {
             coeficienteFriccion = deteccioncalle.FriccionDinamicaMaterial();
             tieneCoeficienteFriccion = true;
-        }
-        if (other != null)
-        {
             enElAire = false;
         }
+        
     }
-
     private void OnTriggerStay(Collider other)
     {
-        if (other != null)
+        other.gameObject.TryGetComponent(out DeteccionCalle deteccioncalle);
+
+        if (deteccioncalle != null)
         {
+            tieneCoeficienteFriccion = false;
             enElAire = false;
         }
+
     }
+
     private void OnTriggerExit(Collider other)
     {
         other.gameObject.TryGetComponent(out DeteccionCalle deteccioncalle);
@@ -43,11 +45,8 @@ public class Rueda : MonoBehaviour
         if (deteccioncalle != null)
         {
             tieneCoeficienteFriccion = false;
-        }
-
-        if (other != null)
-        {
             enElAire = true;
         }
+
     }
 }

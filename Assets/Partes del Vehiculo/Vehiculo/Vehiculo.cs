@@ -17,7 +17,6 @@ public class Vehiculo : Simulator
 
     [Header("Parametros Vehiculo en el aire")]
     [SerializeField] float masaEnElAire;
-    [SerializeField] float empujeEnElAire = 20f;
 
 
     [Header("Giro del vehículo")]
@@ -109,8 +108,7 @@ public class Vehiculo : Simulator
     {
         if (ruedas.EnElAire)
         {
-            rb.AddForce(Vector3.down * empujeEnElAire, ForceMode.Acceleration); 
-            return;
+            rb.AddForce(Vector3.down * ruedas.EmpujeEnElAire, ForceMode.Acceleration); 
         }
 
         if (motor.MotorEncendido)

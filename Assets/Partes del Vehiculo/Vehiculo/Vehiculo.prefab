@@ -3027,7 +3027,7 @@ GameObject:
   - component: {fileID: 5024561108027750075}
   - component: {fileID: 3353467979493276579}
   - component: {fileID: 3522847412455692999}
-  - component: {fileID: 7525939083687224822}
+  - component: {fileID: 1873887462765714528}
   m_Layer: 0
   m_Name: DerechaAtras
   m_TagString: Untagged
@@ -3088,8 +3088,8 @@ CapsuleCollider:
   m_Height: 0.3739851
   m_Direction: 2
   m_Center: {x: 0.086784475, y: -0.6, z: 0.3706337}
---- !u!65 &7525939083687224822
-BoxCollider:
+--- !u!136 &1873887462765714528
+CapsuleCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -3106,9 +3106,11 @@ BoxCollider:
   m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 0.36773485, y: 1.2392691, z: 0.103065476}
-  m_Center: {x: 0.096777655, y: -0.5839182, z: 0.19520563}
+  serializedVersion: 2
+  m_Radius: 0.1
+  m_Height: 1
+  m_Direction: 1
+  m_Center: {x: 0, y: 0, z: 0.21}
 --- !u!1 &4053956180385571093
 GameObject:
   m_ObjectHideFlags: 0
@@ -5519,7 +5521,7 @@ GameObject:
   - component: {fileID: 3350470870827813869}
   - component: {fileID: 3496209613914249085}
   - component: {fileID: 1557444485753452031}
-  - component: {fileID: 784904303140959632}
+  - component: {fileID: 535102420175426933}
   m_Layer: 0
   m_Name: IzquierdaAtras
   m_TagString: Untagged
@@ -5580,8 +5582,8 @@ CapsuleCollider:
   m_Height: 0.3739851
   m_Direction: 2
   m_Center: {x: 0.086784475, y: -0.6, z: 0.3706337}
---- !u!65 &784904303140959632
-BoxCollider:
+--- !u!136 &535102420175426933
+CapsuleCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -5598,9 +5600,11 @@ BoxCollider:
   m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 0.36773485, y: 1.2392691, z: 0.103065476}
-  m_Center: {x: 0.096777655, y: -0.5839182, z: 0.19520563}
+  serializedVersion: 2
+  m_Radius: 0.1
+  m_Height: 1
+  m_Direction: 1
+  m_Center: {x: 0, y: 0, z: 0.21}
 --- !u!1 &6457192123845278254
 GameObject:
   m_ObjectHideFlags: 0
@@ -7095,8 +7099,7 @@ MonoBehaviour:
   volante: {fileID: 2522439258851391056}
   tanqueCombustible: {fileID: 3528079874249008319}
   ruedas: {fileID: 4960668137487300590}
-  masaEnElAire: 5000
-  empujeEnElAire: 40
+  masaEnElAire: 2000
   intensidadGiro: 40
   limiteVelocidadGiro: 1
   velocidadMaxima: 200
@@ -7134,7 +7137,7 @@ GameObject:
   - component: {fileID: 137272426259243744}
   - component: {fileID: 8842124045828728046}
   - component: {fileID: 7480537240685510276}
-  - component: {fileID: 8504854591891382986}
+  - component: {fileID: 6989031164055123036}
   m_Layer: 0
   m_Name: IzquierdaAdelante
   m_TagString: Untagged
@@ -7195,8 +7198,8 @@ CapsuleCollider:
   m_Height: 0.3739851
   m_Direction: 2
   m_Center: {x: 0.086784475, y: -0.6, z: 0.3706337}
---- !u!65 &8504854591891382986
-BoxCollider:
+--- !u!136 &6989031164055123036
+CapsuleCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -7213,9 +7216,11 @@ BoxCollider:
   m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 0.36773485, y: 1.2392691, z: 0.103065476}
-  m_Center: {x: 0.096777655, y: -0.5839182, z: 0.19520563}
+  serializedVersion: 2
+  m_Radius: 0.1
+  m_Height: 1
+  m_Direction: 1
+  m_Center: {x: 0, y: 0, z: 0.21}
 --- !u!1 &8706001659112638766
 GameObject:
   m_ObjectHideFlags: 0
@@ -8188,7 +8193,7 @@ PrefabInstance:
       addedObject: {fileID: 8682773407495093270}
     - targetCorrespondingSourceObject: {fileID: 5770477097428399347, guid: 29952c2457a1e2a45a75a0b4ca82c261, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 159939361373498268}
+      addedObject: {fileID: 7314365869253587980}
   m_SourcePrefab: {fileID: 100100000, guid: 29952c2457a1e2a45a75a0b4ca82c261, type: 3}
 --- !u!4 &1454993763710211697 stripped
 Transform:
@@ -8214,12 +8219,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   listaRuedas:
   - {fileID: 4742834312397048234}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
+  - {fileID: 8842124045828728046}
+  - {fileID: 3353467979493276579}
+  - {fileID: 3496209613914249085}
   coeficienteFriccion: 0.3
   coeficienteFriccionActual: 0
   enElAire: 0
+  empujeEnElAire: 0
+  empuje1ruedasEnAire: 50
+  empuje2ruedasEnAire: 100
+  empuje3ruedasEnAire: 150
+  empuje4ruedasEnAire: 200
 --- !u!1 &8329589298123026401 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 5770477097428399347, guid: 29952c2457a1e2a45a75a0b4ca82c261, type: 3}
@@ -8263,8 +8273,8 @@ CapsuleCollider:
   m_Height: 0.3739851
   m_Direction: 2
   m_Center: {x: 0.086784475, y: -0.6, z: 0.3706337}
---- !u!65 &159939361373498268
-BoxCollider:
+--- !u!136 &7314365869253587980
+CapsuleCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -8281,9 +8291,11 @@ BoxCollider:
   m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 0.36773485, y: 1.2392691, z: 0.103065476}
-  m_Center: {x: 0.096777655, y: -0.5839182, z: 0.19520563}
+  serializedVersion: 2
+  m_Radius: 0.1
+  m_Height: 1
+  m_Direction: 1
+  m_Center: {x: 0, y: 0, z: 0.21}
 --- !u!1001 &3627677007207997287
 PrefabInstance:
   m_ObjectHideFlags: 0

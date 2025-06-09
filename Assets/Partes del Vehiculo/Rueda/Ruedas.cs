@@ -7,8 +7,16 @@ public class Ruedas : MonoBehaviour
     [SerializeField] private float coeficienteFriccion = 0.3f; // ajustable en el Inspector
     [SerializeField] private float coeficienteFriccionActual;
 
-    private bool enElAire = false;
+    [SerializeField] private bool enElAire = false;
+    [SerializeField] float empujeEnElAire;
+    [SerializeField] float empuje1ruedasEnAire=100;
+    [SerializeField] float empuje2ruedasEnAire=200;
+    [SerializeField] float empuje3ruedasEnAire=300;
+    [SerializeField] float empuje4ruedasEnAire=400;
 
+    public float EmpujeEnElAire { 
+        get { return empujeEnElAire; }
+    }
     public bool EnElAire
     {
         get { return enElAire; }
@@ -75,10 +83,35 @@ public class Ruedas : MonoBehaviour
             }
         }
 
-        if (contadorRuedas > 2)
-        { enElAire = true;
-        }else
-        { enElAire = false; 
+        switch (contadorRuedas)
+        {
+            case 1:
+                enElAire = true;
+                empujeEnElAire = empuje1ruedasEnAire;
+                break;
+
+            case 2:
+                enElAire = true;
+                empujeEnElAire = empuje2ruedasEnAire;
+                break;
+
+            case 3:
+                enElAire = true;
+                empujeEnElAire = empuje3ruedasEnAire;
+                break;
+
+            case 4:
+                enElAire = true;
+                empujeEnElAire = empuje4ruedasEnAire;
+                break;
+
+            default:
+                enElAire = false;
+                empujeEnElAire = 0f;
+                break;
         }
+
+
+
     }
 }
