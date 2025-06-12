@@ -38,7 +38,7 @@ public class ControladorSonidos : MonoBehaviour
     /// Reproduce un sonido en una posición específica x,y,z, buscando un "Nuevo" AudioSource disponible.
     /// </summary>
     /// 
-    public void PlaySoundAtPosition(AudioClip clip, Vector3 position, ModePlay mode, bool stopActualClip)
+    public void PlaySoundAtPosition(AudioClip clip, Vector3 position, ModePlay mode, bool stopActualClip, float volume)
     {
         if (clip == null) return;
         AudioSource source = null;
@@ -63,8 +63,8 @@ public class ControladorSonidos : MonoBehaviour
 
         source.clip = clip;
         source.transform.position = position;
-
-        if(mode == ModePlay.playOneShoot) source.PlayOneShot(clip);
+        source.volume = volume;
+        if (mode == ModePlay.playOneShoot) source.PlayOneShot(clip);
         else source.Play();
     }
 
@@ -75,23 +75,23 @@ public class ControladorSonidos : MonoBehaviour
     /// <param name="clip"></param>
     /// <param name="mode"></param>
     /// <param name="stopActualClip"></param>
-    public void PlaySoundGlobal(AudioClip clip,ModePlay mode,bool stopActualClip)
+    public void PlaySoundGlobal(AudioClip clip,ModePlay mode,bool stopActualClip,float volume)
     {
         if (stopActualClip)
         {
             AudioSource source = StopAudioSourceWithClip(clip);
             if (source != null)
             {
-                PlaySoundAtPosition(source, clip, transform.position, mode);
+                PlaySoundAtPosition(source, clip, transform.position, mode, volume);
             }
             else
             {
-                PlaySoundAtPosition(clip, transform.position, mode, false);
+                PlaySoundAtPosition(clip, transform.position, mode, false, volume);
             }
         }
         else
         {
-            PlaySoundAtPosition(clip, transform.position, mode,false);
+            PlaySoundAtPosition(clip, transform.position, mode,false,volume);
         }
     }
 
@@ -105,18 +105,18 @@ public class ControladorSonidos : MonoBehaviour
     public void PlaySoundGlobal(AudioClip clipOriginal, 
                                 AudioClip newClip, 
                                 ModePlay mode, 
-                                bool stopActualClip)
+                                bool stopActualClip,float volume)
     {
         if (stopActualClip)
         {
             StopAudioSourceWithClip(clipOriginal);
             StopAudioSourceWithClip(newClip);
-            PlaySoundAtPosition(newClip, transform.position, mode,true);
+            PlaySoundAtPosition(newClip, transform.position, mode,true, volume);
             
         }
         else
         {
-            PlaySoundAtPosition(newClip, transform.position, mode, stopActualClip);
+            PlaySoundAtPosition(newClip, transform.position, mode, stopActualClip, volume);
         }
     }
 
@@ -127,19 +127,39 @@ public class ControladorSonidos : MonoBehaviour
     /// <param name="clip"></param>
     /// <param name="position"></param>
     /// <param name="mode"></param>
-    private void PlaySoundAtPosition(AudioSource source, AudioClip clip, Vector3 position, ModePlay mode)
+    private void PlaySoundAtPosition(AudioSource source, AudioClip clip, Vector3 position, ModePlay mode,float volume)
     {
         if (clip == null) return;
 
         source.Stop();
         source.clip = clip;
         source.transform.position = position;
+        source.volume = volume;
 
         if (mode == ModePlay.playOneShoot) source.PlayOneShot(clip);
         else source.Play();
     }
 
+    public void SetVolumen(AudioClip clip,float pasoVolumen)
+    {
+        Queue<AudioSource> updatedQueue = new Queue<AudioSource>();
+        AudioSource sourceToreturn = null;
 
+        while (audioSources.Count > 0)
+        {
+            AudioSource source = audioSources.Dequeue();
+
+            if (source.isPlaying && source.clip.name == clip.name)
+            {
+                source.volume += pasoVolumen;
+                sourceToreturn = source;
+            }
+
+            updatedQueue.Enqueue(source);
+        }
+
+        audioSources = updatedQueue;
+    }
 
     /// <summary>
     /// Busca un AudioSource que esté reproduciendo el mismo clip y lo detiene.

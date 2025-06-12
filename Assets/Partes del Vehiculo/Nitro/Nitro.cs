@@ -12,6 +12,11 @@ public class Nitro : Simulator
 
     // Estados
     private bool nitroActivo = false;
+
+    public bool NitroActivo
+    {
+        get { return nitroActivo; }
+    }
     private bool enCooldown = false;
     float nitroActual=1f;
     private void Awake()

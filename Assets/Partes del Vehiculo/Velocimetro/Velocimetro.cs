@@ -25,7 +25,13 @@ public class Velocimetro : Simulator
     }
     private void FixedUpdate()
     {
-        Tablero.instance.MostrarRPM(CalculaAnguloRPM());
+        if(motor.MotorEncendido)
+        {
+            Tablero.instance.MostrarRPM(CalculaAnguloRPM());
+        }else
+        {
+            Tablero.instance.MostrarRPM(0f);
+        }
     }
 
     private float CalculaAnguloRPM()

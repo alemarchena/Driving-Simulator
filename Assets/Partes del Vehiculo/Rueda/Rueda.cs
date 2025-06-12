@@ -3,7 +3,7 @@ using UnityEngine;
 public class Rueda : MonoBehaviour
 {
     public float coeficienteFriccion;
-    [SerializeField] private bool enElAire = true;
+    [SerializeField] private bool enElAire = false;
     public bool EnElAire {
         get { return enElAire; } 
     }

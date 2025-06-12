@@ -39,7 +39,7 @@ void Update()
     if (tiempoTranscurrido > tiempoVerificador)
     {
         tiempoTranscurrido = 0f;
-        if(clip != null) ControladorSonidos.Instance.PlaySoundGlobal(clip,ControladorSonidos.ModePlay.playOneShoot,true);
+        if(clip != null) ControladorSonidos.Instance.PlaySoundGlobal(clip,ControladorSonidos.ModePlay.playOneShoot,true,1f);
     }
 }
 }

@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 4511871532020179432}
   - component: {fileID: 8799256658890666117}
   - component: {fileID: 592102083805549753}
+  - component: {fileID: 1910520076053976077}
   m_Layer: 0
   m_Name: Crossroads_1_lines_2_walk
   m_TagString: Untagged
@@ -112,3 +113,16 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: 5353699008341358040, guid: 8f631a0560592c44890f879375e84e52, type: 3}
+--- !u!114 &1910520076053976077
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 592102083805549752}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2c603f08cf180c94d91d17e82cfc9b9e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  superficieActual: Asfalto

@@ -6,7 +6,8 @@ public class MotorAudio : MonoBehaviour
     [SerializeField] AudioClip motorClip;
 
     [SerializeField] float minPitch = 0.8f;
-    [SerializeField] float maxPitch = 3.0f;
+    [SerializeField] float maxPitch = 2.5f;
+    [SerializeField] float maxPitchNitro = 3.0f;
 
     [Range(0, 1)]
     [SerializeField] float volumen = 1f;
@@ -47,7 +48,11 @@ public class MotorAudio : MonoBehaviour
         {
             rpmActual = motor.RPMactual;
             float t = Mathf.InverseLerp(rpmMin, rpmMax, rpmActual);
-            motorSource.pitch = Mathf.Lerp(minPitch, maxPitch, t);
+            if(motor.Nitro.NitroActivo)
+                motorSource.pitch = Mathf.Lerp(minPitch, maxPitchNitro, t);
+            else
+                motorSource.pitch = Mathf.Lerp(minPitch, maxPitch, t);
+
             motorSource.volume = volumen;
         }else
         {

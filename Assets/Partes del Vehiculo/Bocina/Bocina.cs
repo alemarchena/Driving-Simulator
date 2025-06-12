@@ -89,6 +89,6 @@ public class Bocina : MonoBehaviour
         {
             return;
         }
-        ControladorSonidos.Instance.PlaySoundGlobal(clip, ModePlay.playOneShoot, false);
+        ControladorSonidos.Instance.PlaySoundGlobal(clip, ModePlay.playOneShoot, false, 1f);
     }
 }

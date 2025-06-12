@@ -58,7 +58,8 @@ public class ParteSubParte
     {
         Ninguna,
         Derecha, Izquierda,
-        Neutro,Reversa, Primera, Segunda, Tercera, Cuarta, Quinta, Sexta
+        Neutro,Reversa, Primera, Segunda, Tercera, Cuarta, Quinta, Sexta,
+        Subir, Bajar,
     }
 
     public PartesComando parte;

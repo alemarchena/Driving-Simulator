@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Collections.Generic;
 using System.Xml.Serialization;
 using UnityEditor;
@@ -10,24 +11,29 @@ public class Vehiculo : Simulator
     [Header("Partes del vehículo")]
     [SerializeField] Motor motor;
     [SerializeField] Freno freno;
+    [Range(0f, 1f)]
+    [SerializeField] float reduccionFuerzaFrenoMano = 0.3f; // 30% de fuerza cuando el freno de mano está activo
+
     [SerializeField] Volante volante;
     [SerializeField] FuelTank tanqueCombustible;
     [SerializeField] Ruedas ruedas;
     public static Vehiculo instance;
 
+    [Space]
     [Header("Parametros Vehiculo en el aire")]
     [SerializeField] float masaEnElAire;
 
-
+    [Space]
     [Header("Giro del vehículo")]
     [SerializeField] private float intensidadGiro = 2.5f; // Cuánto gira al máximo
     [SerializeField] private float limiteVelocidadGiro = 5f; // No girar si es muy lento
 
-
+    [Space]
     [Header("Giro de las agujas")]
     [SerializeField] private float velocidadMaxima = 200f;
     [SerializeField] private float anguloMin = -20f;
     [SerializeField] private float anguloMax = 200f;
+
 
     private float coeficienteFriccionActual;
 
@@ -93,9 +99,6 @@ public class Vehiculo : Simulator
         }
     }
 
-    
-    
-
     private void VerificarSiTieneMotor()
     {
         if(motor == null)
@@ -108,37 +111,30 @@ public class Vehiculo : Simulator
     {
         if (ruedas.EnElAire)
         {
-            rb.AddForce(Vector3.down * ruedas.EmpujeEnElAire, ForceMode.Acceleration); 
+            rb.AddForce(Vector3.down * ruedas.EmpujeEnElAire, ForceMode.Acceleration);
         }
 
-        if (motor.MotorEncendido)
+        if (motor.MotorEncendido && !ruedas.TodasRuedasEnElAire)
         {
             tanqueCombustible.ConsumeFuel(motor.ConsumoCombustible);
 
-            if(!VerificaFrenoMano())
+            float fuerzaAplicada = motor.FuerzaMotor;
+
+            if (freno.FrenoDeManoActivo)
             {
-                rb.AddForce(transform.forward * motor.FuerzaMotor, ForceMode.Force);
-
-                VerificaFrenaje();
-
-                VerificaGiroVolante();
-
-                Tablero.instance.MostrarVelocidad(CalculaAnguloVelocidad());
+                fuerzaAplicada *= reduccionFuerzaFrenoMano;
             }
+
+            rb.AddForce(transform.forward * fuerzaAplicada, ForceMode.Force);
+
+            VerificaFrenaje();
+
+            VerificaGiroVolante();
+
+            Tablero.instance.MostrarVelocidad(CalculaAnguloVelocidad());
         }
-
     }
 
-    private bool VerificaFrenoMano()
-    {
-        if (freno.FrenoDeManoActivo)
-        {
-            rb.linearVelocity = Vector3.zero;
-            rb.angularVelocity = Vector3.zero;
-            return true;
-        }else
-            return false;
-    }
     private void VerificaFrenaje()
     {
         // Aplicar frenado
@@ -165,7 +161,6 @@ public class Vehiculo : Simulator
             rb.AddForce(direccionFriccion * fuerzaFriccion * rb.mass, ForceMode.Force);
         }
     }
-
     private void VerificaGiroVolante()
     {
         Volante.MovimientoVolante movimientoVolante = volante.GiroVolante();
@@ -212,8 +207,10 @@ public class Vehiculo : Simulator
         CreadoresSimulator = creadores;
     }
 
-    public void RecibirDanio(float danio) { 
-    
+    public void RecibirDanio(float danio)
+    { 
+        
     }
+
 }
 

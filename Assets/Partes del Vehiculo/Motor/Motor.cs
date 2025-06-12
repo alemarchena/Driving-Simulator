@@ -17,6 +17,8 @@ public class Motor : Simulator
     [SerializeField] PalancaDeCambio palanca;
     [SerializeField] float consumoCombustible = 0.01f;
 
+    public Nitro Nitro { get { return nitro; } }
+
     [Space]
     [Header("Encendido del motor")]
     [SerializeField] ParteSubParte parteSubParteArranqueMotor;
