@@ -62,10 +62,6 @@ MonoBehaviour:
       subParte: 10
     teclas: 36000000
   - parteSubparte:
-      parte: 6
-      subParte: 0
-    teclas: 34010000
-  - parteSubparte:
       parte: 0
       subParte: 0
     teclas: 77000000

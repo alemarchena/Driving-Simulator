@@ -15,7 +15,7 @@ public class Bocina : MonoBehaviour
 
     [Header("Configuración de creador")]
     [SerializeField]
-    private Creadores creadores = Creadores.Sabatini_Cialone_Santino;
+    private Creadores creador = Creadores.Sabatini_Cialone_Santino;
 
     [Header("Clips de audio (arrástralos en el Inspector)")]
     [SerializeField]
@@ -29,10 +29,17 @@ public class Bocina : MonoBehaviour
     private void Awake()
     {
         // Asegura creador por defecto
-        creadores = Creadores.Sabatini_Cialone_Santino;
+        creador = Creadores.Sabatini_Cialone_Santino;
 
     }
-
+    public string Describir
+    {
+        get
+        {
+            string descripcion = creador.ToString();
+            return descripcion;
+        }
+    }
     private void Start()
     {
         teclasComandoNormal = ControladorComandos.instance.AsignaTeclas(parteSubparteNormal);

@@ -3,7 +3,7 @@ using UnityEngine;
 public class Tablero : MonoBehaviour
 {
     public static Tablero instance;
-    [SerializeField] private Creadores creadores = Creadores.Alejandro_Marchena;
+    [SerializeField] private Creadores creador = Creadores.Alejandro_Marchena;
 
     [Space]
     [Header("Luces del Vehículo")]
@@ -38,6 +38,14 @@ public class Tablero : MonoBehaviour
         instance = this;
     }
 
+    public string Describir
+    {
+        get
+        {
+            string descripcion = creador.ToString();
+            return descripcion;
+        }
+    }
     public void MostrarFrenoDeMano(bool estadoFrenadoMano)
     {
         frenoDeMano.SetActive(estadoFrenadoMano);

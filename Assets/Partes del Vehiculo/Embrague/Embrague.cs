@@ -2,28 +2,38 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 
-public class Embrague : Simulator
+public class Embrague : MonoBehaviour
 {
     private enum EstadoEmbrague { Presionado, Suelto }
 
-    // Asignamos directamente a Santino Sabatini como creador predeterminado
-    [SerializeField] private Creadores creadores = Creadores.Sabatini_Cialone_Santino;
+    [SerializeField] private Creadores creador = Creadores.Sabatini_Cialone_Santino;
 
     private EstadoEmbrague estadoActual = EstadoEmbrague.Suelto;
-
     [SerializeField] private bool estaPresionado;
-
     public bool EstaPresionado => estaPresionado;
 
+    [SerializeField] private KeyCode teclaMouse;
+
+   
     private void Awake()
     {
-        creadores = Creadores.Sabatini_Cialone_Santino;
+        creador = Creadores.Sabatini_Cialone_Santino;
     }
+
     private void Start()
     {
-        AsignarCreador(creadores);
-        Describir();
-        teclasComando = ControladorComandos.instance.AsignaTeclas(parteSubparte);
+        teclaMouse = ControladorComandos.instance.TeclaEspecial(ControladorComandos.TeclasEspeciales.MouseDerecho);
+    }
+    private bool SeMantienePresionadaLaTecla()
+    {
+        bool sePresionoTecla = false;
+        
+        if (Input.GetKey(teclaMouse))
+        {
+            sePresionoTecla = true;
+        }
+        
+        return sePresionoTecla;
     }
 
     private void Update()
@@ -46,14 +56,12 @@ public class Embrague : Simulator
         }
     }
 
-    public override void Describir()
+    public string Describir
     {
-
+        get
+        {
+            string descripcion = creador.ToString();
+            return descripcion;
+        }
     }
-
-    public override void AsignarCreador (Creadores creador)
-    {
-        CreadoresSimulator = creador;
-    }
-
 }

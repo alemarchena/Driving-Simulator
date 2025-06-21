@@ -35,14 +35,21 @@ public class Freno : MonoBehaviour
     bool sePresionoTeclaFreno;
     bool sePresionoTeclaFrenoMano;
 
+    public string Describir
+    {
+        get {
+            string descripcion = creador.ToString();    
+            return descripcion;
+        }
+    }
     public bool FrenoDeManoActivo
     {
         get { return frenoDeManoActivo; }
     }
     private void Start()
     {
-    teclasComandoFreno = ControladorComandos.instance.AsignaTeclas(parteSubparteFreno);
-    teclasComandoFrenoMano = ControladorComandos.instance.AsignaTeclas(parteSubparteFrenoMano);
+        teclasComandoFreno = ControladorComandos.instance.AsignaTeclas(parteSubparteFreno);
+        teclasComandoFrenoMano = ControladorComandos.instance.AsignaTeclas(parteSubparteFrenoMano);
     }
 
     private void Update()
@@ -139,7 +146,7 @@ public class Freno : MonoBehaviour
     {
         durabilidadFreno += cantidad;
         durabilidadFreno = Mathf.Clamp(durabilidadFreno, 0f, 100f);
-        Debug.Log($"Freno reparado. Durabilidad actual: {durabilidadFreno}%");
+
     }
 
 }

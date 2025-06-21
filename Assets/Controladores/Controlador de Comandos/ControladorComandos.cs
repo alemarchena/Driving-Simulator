@@ -8,6 +8,8 @@ public class ControladorComandos : MonoBehaviour
 
     List<KeyCode> teclasComando = new List<KeyCode>();
 
+    public enum TeclasEspeciales {MouseDerecho,MouseIzquiero,MouseRueda}
+
     private void Awake()
     {
         instance = this;
@@ -45,4 +47,21 @@ public class ControladorComandos : MonoBehaviour
 
         return teclasComando;
     }
+
+    /// <summary>
+    /// Devuelve un arreglo de keycode
+    /// </summary>
+    /// <returns></returns>
+  
+    public KeyCode TeclaEspecial(TeclasEspeciales tecla)
+    {
+        if (tecla == TeclasEspeciales.MouseDerecho)
+            return KeyCode.Mouse1;
+        else if (tecla == TeclasEspeciales.MouseIzquiero)
+            return KeyCode.Mouse0;
+        else if (tecla == TeclasEspeciales.MouseRueda)
+            return KeyCode.Mouse2;
+        else return KeyCode.None;
+    }
+
 }

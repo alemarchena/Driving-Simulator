@@ -18,7 +18,15 @@ public class ControladorDeCamaras : Simulator
         AsignarComandos();
     }
 
-   
+    public string Describir
+    {
+        get
+        {
+            string descripcion = creador.ToString();
+            return descripcion;
+        }
+    }
+
     void Update()
     {
         if (SePresionoLaTecla()) // cambiar cámara

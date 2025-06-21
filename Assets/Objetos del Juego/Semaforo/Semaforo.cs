@@ -49,7 +49,8 @@ public class Semaforo : MonoBehaviour
         while (temporizador > 0f)
         {
             temporizador -= Time.deltaTime;
-            display.text = Mathf.CeilToInt(temporizador).ToString();
+            if(display!=null)
+                display.text = Mathf.CeilToInt(temporizador).ToString();
             yield return null;
         }
     }
@@ -66,15 +67,18 @@ public class Semaforo : MonoBehaviour
         {
             case EstadoSemaforo.Verde:
                 lamparaVerde.SetActive(true);
-                display.color = Color.green;
+                if (display != null)
+                    display.color = Color.green;
                 break;
             case EstadoSemaforo.Amarillo:
                 lamparaAmarilla.SetActive(true);
-                display.color = Color.yellow;
+                if (display != null)
+                    display.color = Color.yellow;
                 break;
             case EstadoSemaforo.Rojo:
                 lamparaRoja.SetActive(true);
-                display.color = Color.red;
+                if (display != null)
+                    display.color = Color.red;
                 break;
         }
     }

@@ -22,7 +22,6 @@ public class DetectorGolpes : MonoBehaviour
         {
             ControladorSonidos.Instance.PlaySoundGlobal(audioGolpe, ControladorSonidos.ModePlay.play, false, 0.3f);
         }
-        Debug.Log(other.gameObject.name);
     }
    
 }
