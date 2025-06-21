@@ -482,7 +482,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e3daf34d0ab6d0743ae1d5c2ab855beb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  creadores: 0
+  creador: 0
   balizas: {fileID: 2159259861205459895}
   giroIzquierdo: {fileID: 5559422178158057830}
   giroDerecho: {fileID: 5644699353470822676}
@@ -2843,12 +2843,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 597c34e286026b24f94f1c7e9e675ee9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  teclasComando: 
-  parteSubparte:
-    parte: 6
-    subParte: 0
-  creadores: 22
+  creador: 22
   estaPresionado: 0
+  teclaMouse: 0
 --- !u!1 &3587019948071798500
 GameObject:
   m_ObjectHideFlags: 0
@@ -3702,7 +3699,7 @@ MonoBehaviour:
   audioClipList:
   - {fileID: 8300000, guid: 6e75a08682dec0744a24702426476f50, type: 3}
   - {fileID: 8300000, guid: 48cdbd623a9b20b4581fe4fe9f22f7c4, type: 3}
-  pasoVolumen: 0.05
+  pasoVolumen: 0.02
   parteSubparteSubirVolumen:
     parte: 5
     subParte: 11
@@ -6363,7 +6360,7 @@ MonoBehaviour:
   parteSubparteSecreto:
     parte: 3
     subParte: 6
-  creadores: 22
+  creador: 22
   clipNormal: {fileID: 8300000, guid: df0ed3911739eac4489959b1aad21a59, type: 3}
   clipSecreto: {fileID: 8300000, guid: 7fbd1ef00c5aa5141858f619ff0062cd, type: 3}
 --- !u!1 &7260134080370115351
@@ -6417,7 +6414,7 @@ MonoBehaviour:
   aceleracion: 0
   tiempoHastaMaximaAceleracion: 0.7
   tasaIncremento: 0.7
-  tasaDecremento: 0.5
+  tasaDecremento: 0.4
   creadores: 7
 --- !u!1 &7397835138011139188
 GameObject:
@@ -6778,7 +6775,8 @@ MonoBehaviour:
   motorSource: {fileID: 2151996478614753591}
   motorClip: {fileID: 8300000, guid: a2d17a62da1bd5546abb5f21365884cc, type: 3}
   minPitch: 0.5
-  maxPitch: 3
+  maxPitch: 2.5
+  maxPitchNitro: 3
   volumen: 1
   rpmActual: 0
   rpmMin: 0
@@ -7368,8 +7366,8 @@ MonoBehaviour:
   tanqueCombustible: {fileID: 3528079874249008319}
   ruedas: {fileID: 4960668137487300590}
   masaEnElAire: 1900
-  intensidadGiro: 40
-  limiteVelocidadGiro: 1
+  intensidadGiro: 35
+  limiteVelocidadGiro: 0.2
   velocidadMaxima: 200
   anguloMin: -20
   anguloMax: 235
@@ -8550,10 +8548,10 @@ MonoBehaviour:
   enElAire: 0
   todasRuedasenElAire: 0
   empujeEnElAire: 0
-  empuje1ruedasEnAire: 30
-  empuje2ruedasEnAire: 40
-  empuje3ruedasEnAire: 50
-  empuje4ruedasEnAire: 60
+  empuje1ruedasEnAire: 40
+  empuje2ruedasEnAire: 50
+  empuje3ruedasEnAire: 60
+  empuje4ruedasEnAire: 70
 --- !u!1001 &3627677007207997287
 PrefabInstance:
   m_ObjectHideFlags: 0
