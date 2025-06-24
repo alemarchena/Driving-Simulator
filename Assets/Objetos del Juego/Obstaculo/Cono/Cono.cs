@@ -1,3 +1,4 @@
+using UnityEditor.SceneManagement;
 using UnityEngine;
 
 public class Cono : Obstaculo
@@ -9,13 +10,16 @@ public class Cono : Obstaculo
         actaInfraccion = GetComponent<ActaInfraccion>();
     }
 
-    private void OnTriggerEnter(Collider other)
+   
+    private void OnCollisionEnter(Collision collision)
     {
-        other.gameObject.TryGetComponent(out Vehiculo vehiculo);
+        collision.gameObject.TryGetComponent(out Vehiculo vehiculo);
 
         if (vehiculo != null && actaInfraccion)
         {
             actaInfraccion.CrearActaInfraccion();
+            Destroy(actaInfraccion);
+            actaInfraccion = null;
         }
     }
 }
