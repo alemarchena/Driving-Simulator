@@ -5,12 +5,15 @@ using UnityEngine;
 public class Infraccion : ScriptableObject
 {
     [SerializeField] InfraccionMonto infraccion;
+    public AudioClip clip;
+
 }
 
 [Serializable]
 struct InfraccionMonto
 {
     public string nombre;
+    [TextArea(3, 6)]  public string descripcion;
     public TypeInfraccion TypeInfraccion;
     public float monto;
     public Sprite imagenInfraccion;

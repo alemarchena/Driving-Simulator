@@ -67,13 +67,25 @@ public class ControladorInfraccionesEditor : Editor
                     SerializedProperty infraccionProp = so.FindProperty("infraccion");
 
                     string nombre = infraccionProp.FindPropertyRelative("nombre")?.stringValue ?? "(Sin nombre)";
+                    
+                    SerializedProperty descripcionProp = infraccionProp.FindPropertyRelative("descripcion");
+                    string descripcion = descripcionProp?.stringValue ?? "";
+                    
                     var tipo = infraccionProp.FindPropertyRelative("TypeInfraccion").enumDisplayNames[infraccionProp.FindPropertyRelative("TypeInfraccion").enumValueIndex];
                     var img = infraccionProp.FindPropertyRelative("imagenInfraccion").objectReferenceValue;
                     var gesto = infraccionProp.FindPropertyRelative("gestoInfraccion").objectReferenceValue;
+                    var monto = infraccionProp.FindPropertyRelative("monto")?.floatValue ?? 0;
 
                     EditorGUILayout.BeginVertical("box");
                     EditorGUILayout.LabelField($"Nombre: {nombre}", EditorStyles.boldLabel);
+
+                    EditorGUILayout.LabelField("Descripción:", EditorStyles.boldLabel);
+                    GUIStyle estiloDescripcion = new GUIStyle(EditorStyles.textArea);
+                    estiloDescripcion.wordWrap = true;
+                    EditorGUILayout.LabelField(descripcion, estiloDescripcion, GUILayout.MinHeight(40));
+
                     EditorGUILayout.LabelField($"Tipo: {tipo}");
+                    EditorGUILayout.LabelField($"Monto: {monto}");
 
                     EditorGUILayout.LabelField("Imagen:", img ? "✔️ Asignada" : "❌ Faltante");
                     EditorGUILayout.LabelField("Gesto:", gesto ? "✔️ Asignado" : "❌ Faltante");
