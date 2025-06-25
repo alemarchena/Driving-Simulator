@@ -34,6 +34,12 @@ public class Vehiculo : Simulator
     [SerializeField] private float anguloMin = -20f;
     [SerializeField] private float anguloMax = 200f;
 
+    [Space]
+    [Header("Inclinacion al doblar")]
+    [Header("Inclinación del vehículo al girar")]
+    [SerializeField] private float fuerzaInclinacion = 200f;
+    [SerializeField] private float velocidadMinimaInclinacion = 5f;
+    [SerializeField] private float factorSuavizadoInclinacion = 0.01f;
 
     private float coeficienteFriccionActual;
 
@@ -183,6 +189,29 @@ public class Vehiculo : Simulator
             Quaternion rotacion = Quaternion.Euler(0f, giro, 0f);
             rb.MoveRotation(rb.rotation * rotacion);
         }
+
+        // Aplicar inclinación (body roll)
+        if (!rb.IsSleeping() && velocidadActual > velocidadMinimaInclinacion && !ruedas.EnElAire)
+        {
+            float inclinacion = -direccion * fuerzaInclinacion;
+
+            // Aplica torque sobre el eje Z del auto (roll lateral), ya que apunta hacia -X
+            rb.AddTorque(transform.forward * inclinacion, ForceMode.Impulse);
+        }
+
+        // -------- Recuperación automática del roll --------
+        if (direccion == 0f && !ruedas.EnElAire && velocidadActual > velocidadMinimaInclinacion)
+        {
+            // Obtenemos la inclinación lateral actual como ángulo en Z
+            float anguloRoll = rb.rotation.eulerAngles.z;
+            if (anguloRoll > 180f) anguloRoll -= 360f; // Convertimos de 0-360 a -180 a 180
+
+            float torqueCorreccion = -anguloRoll * fuerzaInclinacion * factorSuavizadoInclinacion;
+
+            rb.AddTorque(transform.forward * torqueCorreccion, ForceMode.Force);
+        }
+
+
     }
 
     private float CalculaAnguloVelocidad()

@@ -1,0 +1,31 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3250083fc76c9094683bb27604b1fe36, type: 3}
+  m_Name: InfraccionPorEscapar
+  m_EditorClassIdentifier: 
+  infraccion:
+    nombre: 
+    descripcion: "Ley Nacional de Tr\xE1nsito (N.\xBA 24.449)\nArt\xEDculo 72 inc.
+      a y b \u2014 El conductor debe detenerse ante la se\xF1al de detenci\xF3n de
+      la autoridad.\n\n\U0001F539 Si no lo hace, puede considerarse una falta grave
+      y conlleva: Multa, Retenci\xF3n del veh\xEDculo, Inhabilitaci\xF3n para conducir\n\nC\xF3digo
+      Penal Argentino : Desobediencia a la autoridad\tArt. 239\tNegarse a cumplir
+      una orden leg\xEDtima de un funcionario p\xFAblico. Pena: 15 d\xEDas a 1 a\xF1o
+      de prisi\xF3n.\n\nAtentado o resistencia a la autoridad\tArt. 237\tSi se ejerce
+      fuerza o se pone en riesgo al agente. Pena: 1 mes a 2 a\xF1os.\n\nPeligro para
+      la seguridad del tr\xE1nsito\tArt. 193 bis\tSi hu\xEDs poniendo en riesgo a
+      terceros con maniobras peligrosas. Pena: 6 meses a 3 a\xF1os, e inhabilitaci\xF3n.\n\n\n"
+    TypeInfraccion: 2
+    monto: 5000
+    imagenInfraccion: {fileID: 21300000, guid: f0c78913b8ddde546837b9fec4d59e5b, type: 3}
+    gestoInfraccion: {fileID: 21300000, guid: f0c78913b8ddde546837b9fec4d59e5b, type: 3}
+  clip: {fileID: 8300000, guid: 688ae9c1a313681428a5df67dbb0c8cc, type: 3}

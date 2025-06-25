@@ -5,6 +5,8 @@ using TMPro;
 
 public class PoliceCheckpoint : MonoBehaviour
 {
+    [SerializeField] ActaInfraccion actaInfraccion;
+
     [SerializeField] GameObject stopSignUI;
     [SerializeField] GameObject questionPanel;
     [SerializeField] TextMeshProUGUI questionText;
@@ -25,6 +27,7 @@ public class PoliceCheckpoint : MonoBehaviour
     public List<Pregunta> preguntas = new List<Pregunta>();
 
 
+
     private bool playerInZone = false;
     private int currentQuestion = 0;
 
@@ -41,6 +44,8 @@ public class PoliceCheckpoint : MonoBehaviour
         {
             answerButtonB.onClick.AddListener(() => HandleAnswer(false)); // false para opción B
         }
+
+        if (actaInfraccion == null) Debug.LogWarning("Falta el componente Acta Infraccion");
     }
 
     private void Update()
@@ -86,8 +91,8 @@ public class PoliceCheckpoint : MonoBehaviour
             if (preguntasActivas) {
                 if (preguntasRespondidas < preguntas.Count)
                 {
-                    //Cobrar multa por escapar
-                    Debug.Log("Multa por escapar..");
+                    if (actaInfraccion != null)
+                        actaInfraccion.CrearActaInfraccion();
                 }
                 preguntasRespondidas=0;
                 preguntasActivas = false;
