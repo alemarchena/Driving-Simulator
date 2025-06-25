@@ -1,6 +1,7 @@
 using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEngine.Audio;
 
 public class Intermitente : MonoBehaviour
 {
@@ -18,8 +19,9 @@ public class Intermitente : MonoBehaviour
     [SerializeField] private Vector3 posicionFrontal;
     [SerializeField] private Vector3 posicionTrasera;
     [SerializeField] private float intervaloParpadeo;
-    [SerializeField] private bool sonidoActivo;
     [SerializeField] private AudioClip sonidoIntermitente;
+    private AudioSource audioSource;
+
     [SerializeField] private float volumenSonido;
 
     public bool indicadorActivo;
@@ -35,6 +37,9 @@ public class Intermitente : MonoBehaviour
 
         Tablero.instance.MostrarGiroDerecho(false);
         Tablero.instance.MostrarGiroIzquierdo(false);
+        audioSource = GetComponent<AudioSource>();
+        if (audioSource == null)
+            Debug.LogError("Falta AudioSource en el objeto Balizas.");
         VerificarBalizas();
     }
 
@@ -138,8 +143,6 @@ public class Intermitente : MonoBehaviour
         estadoLuzDer = false;
 
         // Asegurarse de que el sonido se detenga al apagar las luces
-        sonidoActivo = false;
-        DetenerSonido();
     }
 
     private void Parpadeo(float intervaloParpadeo)
@@ -156,34 +159,25 @@ public class Intermitente : MonoBehaviour
         {
             if (estadoLuzIzq)
             {
-                sonidoActivo = true; // Activar el sonido
-                ReproducirSonido();
                 Tablero.instance.MostrarGiroIzquierdo(true);
+                ReproducirSonido(); // Sonido ON
                 yield return new WaitForSeconds(intervaloParpadeo);
 
-                sonidoActivo = false; // Desactivar el sonido
                 Tablero.instance.MostrarGiroIzquierdo(false);
-
+                ReproducirSonido(); // Sonido OFF
                 yield return new WaitForSeconds(intervaloParpadeo);
             }
             else if (estadoLuzDer)
             {
-                sonidoActivo = true; // Activar el sonido
-                ReproducirSonido();
                 Tablero.instance.MostrarGiroDerecho(true);
-
+                ReproducirSonido(); // Sonido ON
                 yield return new WaitForSeconds(intervaloParpadeo);
 
-                sonidoActivo = false; // Desactivar el sonido
                 Tablero.instance.MostrarGiroDerecho(false);
-
+                ReproducirSonido(); // Sonido OFF
                 yield return new WaitForSeconds(intervaloParpadeo);
             }
         }
-
-        // Asegurarse de que el sonido y la luz se detengan al salir del bucle
-        sonidoActivo = false;
-        DetenerSonido();
     }
 
     private void VerificarApagadoAuto(float anguloVolante)
@@ -195,27 +189,14 @@ public class Intermitente : MonoBehaviour
         }
     }
 
-    private void ReproducirSonido()
+    void ReproducirSonido()
     {
-        if (sonidoActivo && sonidoIntermitente != null)
-        {
-            AudioSource.PlayClipAtPoint(sonidoIntermitente, transform.position, volumenSonido);
-        }
+        if (audioSource == null) return;
+
+        audioSource.PlayOneShot(sonidoIntermitente);
     }
 
-    private void DetenerSonido()
-    {
 
-      //Atención : Esta linea esta obligando a todos los audiosource a quedar en silencio aun sin ser los de la parte de intermitentes
 
-      //AudioSource[] audioSources = FindObjectsByType<AudioSource>(FindObjectsSortMode.None);
-      //  foreach (AudioSource audioSource in audioSources)
-      //  {
-      //      if (audioSource.clip == sonidoIntermitente)
-      //      {
-      //          audioSource.Stop();
-      //      }
-      //  }
-    }
 
 }

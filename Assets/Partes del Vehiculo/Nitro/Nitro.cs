@@ -59,7 +59,6 @@ public class Nitro : Simulator
         yield return new WaitForSeconds(cooldownDuracion);
 
         enCooldown = false;
-        Debug.Log("[DEBUG] Cooldown terminado: listo para nuevo nitro");
     }
 
     public override void Describir()

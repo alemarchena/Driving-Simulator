@@ -1,27 +1,40 @@
 ﻿using System;
-using System.Collections.Generic;
 using UnityEngine;
+
 public class Balizas : Simulator
 {
+    [Header("Configuración de balizas")]
     [SerializeField] private Creadores creadores;
     [SerializeField] private float tiempoParpadeo = 1f;
-    public bool BalizaActiva => balizaActiva;
+
+    [Header("Sonidos")]
+    [SerializeField] private AudioClip ticSound;
+    [SerializeField] private AudioClip tocSound;
+    private AudioSource audioSource;
+
     private bool balizaActiva = false;
     private bool estadoLuz = false;
     private float timer = 0f;
+
+    public bool BalizaActiva => balizaActiva;
 
     void Start()
     {
         AsignarCreador(creadores);
         AsignarComandos();
+
+        audioSource = GetComponent<AudioSource>();
+        if (audioSource == null)
+            Debug.LogError("Falta AudioSource en el objeto Balizas.");
+
         Tablero.instance.MostrarBalizas(estadoLuz);
     }
+
     public override void AsignarCreador(Creadores creador)
     {
         CreadoresSimulator = creador;
     }
 
-    
     void Update()
     {
         if (SePresionoLaTecla())
@@ -44,19 +57,27 @@ public class Balizas : Simulator
                 timer = 0f;
                 estadoLuz = !estadoLuz;
                 Tablero.instance.MostrarBalizas(estadoLuz);
+                ReproducirSonido();
             }
         }
     }
+
+    void ReproducirSonido()
+    {
+        if (audioSource == null) return;
+
+        AudioClip clip = estadoLuz ? ticSound : tocSound;
+        audioSource.PlayOneShot(clip);
+    }
+
     public bool PuedeActivarse()
     {
         if (!balizaActiva)
         {
-            Debug.Log("Se pueden activar las luces de giro");
             return true;
         }
         else
         {
-            Debug.Log("No se pueden activar las luces de giro");
             return false;
         }
     }

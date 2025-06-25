@@ -10,6 +10,10 @@ public class PalancaDeCambio : Simulator
 
     [SerializeField] ParteSubParte.SubParte marchaActual = ParteSubParte.SubParte.Neutro;
     Embrague embrague;
+
+    [SerializeField] AudioClip clipSinEmbrague;
+    [SerializeField] AudioClip clipCambio;
+    AudioSource audioSource;
     public ParteSubParte.SubParte MarchaActual
     {
         get { return marchaActual; }
@@ -20,6 +24,16 @@ public class PalancaDeCambio : Simulator
         SearchAndSetComandos();
         ObtenerEmbrague();
         Describir();
+
+        audioSource = GetComponent<AudioSource>();
+        if (audioSource == null)
+            Debug.LogError("Falta AudioSource en el objeto Palanca de cambio.");
+        if(clipCambio == null )
+                Debug.LogError("Falta el clip de sonido de Palanca de cambio.");
+        if(clipSinEmbrague == null)
+            Debug.LogError("Falta el clip de sonido de embrague.");
+
+
     }
 
     private void ObtenerEmbrague()
@@ -59,8 +73,7 @@ public class PalancaDeCambio : Simulator
                 }
                 else
                 {
-                    //hizo un cambio sin presionar el embrague (Ver que hacer...)
-                    Debug.Log("No presionaste el embrague");
+                    ReproducirSonido(clipSinEmbrague);
                 }
             }
         }
@@ -82,6 +95,7 @@ public class PalancaDeCambio : Simulator
     {
         if (marchaActual != nuevaMarcha)
         {
+            ReproducirSonido(clipCambio);
             marchaActual = nuevaMarcha;
             Tablero.instance.MostrarMarcha(marchaActual); //Muestra la marcha en texto
         }
@@ -95,6 +109,13 @@ public class PalancaDeCambio : Simulator
     public override void AsignarCreador(Creadores creadores)
     {
         CreadoresSimulator = creadores;
+    }
+
+    void ReproducirSonido(AudioClip clip)
+    {
+        if (audioSource == null) return;
+
+        audioSource.PlayOneShot(clip);
     }
 }
 
