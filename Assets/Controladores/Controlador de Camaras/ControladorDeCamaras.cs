@@ -7,6 +7,15 @@ public class ControladorDeCamaras : Simulator
     [SerializeField] List<CinemachineCamera> cameras;
     [SerializeField] Creadores creador = Creadores.Alejandro_Marchena;
 
+    public List<CinemachineCamera> Cameras
+    {
+        get { return cameras; }
+    }
+    public List<CinemachineCamera> CantidadDeCamaras
+    {
+        get { return cameras; }
+    }
+
     private int camaraActual = 0;
     public override void AsignarCreador(Creadores creadores)
     {

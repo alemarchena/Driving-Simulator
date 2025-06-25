@@ -36,7 +36,7 @@ MonoBehaviour:
   - parteSubparte:
       parte: 7
       subParte: 4
-    teclas: 37000000
+    teclas: 72000000
   - parteSubparte:
       parte: 7
       subParte: 5
@@ -68,7 +68,7 @@ MonoBehaviour:
   - parteSubparte:
       parte: 5
       subParte: 0
-    teclas: 72000000
+    teclas: 7a000000
   - parteSubparte:
       parte: 8
       subParte: 0
