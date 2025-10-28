@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Audio;
 
 public class PalancaDeCambio : Simulator
 {
@@ -73,7 +74,8 @@ public class PalancaDeCambio : Simulator
                 }
                 else
                 {
-                    ReproducirSonido(clipSinEmbrague);
+                    MessageDisplaySystem.instance.ShowMessage("Presiona el embrague o romperas la caja", 1f, 0f);
+                    ReproducirSonido(clipSinEmbrague,0.2f);
                 }
             }
         }
@@ -95,7 +97,8 @@ public class PalancaDeCambio : Simulator
     {
         if (marchaActual != nuevaMarcha)
         {
-            ReproducirSonido(clipCambio);
+            ReproducirSonido(clipCambio,0.8f);
+
             marchaActual = nuevaMarcha;
             Tablero.instance.MostrarMarcha(marchaActual); //Muestra la marcha en texto
         }
@@ -111,10 +114,11 @@ public class PalancaDeCambio : Simulator
         CreadoresSimulator = creadores;
     }
 
-    void ReproducirSonido(AudioClip clip)
+    void ReproducirSonido(AudioClip clip,float volume)
     {
         if (audioSource == null) return;
 
+        audioSource.volume = volume;
         audioSource.PlayOneShot(clip);
     }
 }

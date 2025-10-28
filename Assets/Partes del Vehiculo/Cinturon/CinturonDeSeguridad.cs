@@ -33,6 +33,10 @@ void Update()
     {
         cinturonAbrochado = !cinturonAbrochado;
         Tablero.instance.MostrarCinturon(cinturonAbrochado);
+
+
+        string mensaje = cinturonAbrochado ? "Abrochado" : "Desabrochado";
+        MessageDisplaySystem.instance.ShowMessage("Cinturon " + mensaje, 1f, 0f);
     }
     tiempoTranscurrido += Time.deltaTime;
 

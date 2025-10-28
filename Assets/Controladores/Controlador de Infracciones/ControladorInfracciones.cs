@@ -6,9 +6,6 @@ using UnityEngine;
 public class ControladorInfracciones : ScriptableObject
 {
     private List<Infraccion> infracciones;
-
-    List<Infraccion> infraccionesPlayer = new List<Infraccion>();
-
     public List<Infraccion> Infracciones => infracciones;
 
     public void AgregarInfraccion(Infraccion nueva)
@@ -48,34 +45,22 @@ public class ControladorInfracciones : ScriptableObject
         }
 #endif
 
-
-    public void AgregarInfraccionAlPlayer(Infraccion nueva)
+    public List<Infraccion> GetInfracciones()
     {
-        if (nueva == null)
-        {
-            Debug.LogWarning("Infracción nula. No se puede agregar.");
-            return;
-        }
-
-        if (!infraccionesPlayer.Contains(nueva))
-        {
-            infraccionesPlayer.Add(nueva);
-            Debug.Log($"Infracción agregada al jugador: {nueva.name}");
-            // Aquí podrías disparar un evento si querés reaccionar en UI, por ejemplo.
-        }
-        else
-        {
-            Debug.Log($"El jugador ya tiene esta infracción: {nueva.name}");
-        }
+        return new List<Infraccion>(infracciones); // devolver copia para evitar modificaciones externas
     }
 
-    public List<Infraccion> GetInfraccionesDelPlayer()
+    public float TotalInfracciones()
     {
-        return new List<Infraccion>(infraccionesPlayer); // devolver copia para evitar modificaciones externas
+        float total = 0;
+        foreach(var infraccion in infracciones)
+        {
+            total += infraccion.Datos.monto;
+        }
+        return total;
     }
-
-    public void LimpiarInfraccionesDelPlayer()
+    public void LimpiarInfracciones()
     {
-        infraccionesPlayer.Clear();
+        infracciones.Clear();
     }
 }

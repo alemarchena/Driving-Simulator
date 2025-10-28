@@ -415,6 +415,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3ba97d2a10834c744979b47595b3dc88, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  infraccion: {fileID: 0}
   speedLimit: 10
   detectionRange: 44.2
   detectionAngle: 61.5
@@ -439,5 +440,5 @@ SphereCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Radius: 44.2
+  m_Radius: 9.300132
   m_Center: {x: 0, y: 0, z: 0}

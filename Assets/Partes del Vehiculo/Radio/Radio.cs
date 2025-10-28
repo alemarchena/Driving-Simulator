@@ -34,6 +34,7 @@ public class Radio : Simulator
             ControladorComandos.instance.AsignaTeclas(parteSubparteSubirVolumen);
         teclasComandoBajarVolumen = 
             ControladorComandos.instance.AsignaTeclas(parteSubparteBajarVolumen);
+
     }
 
     private void Update()
@@ -102,7 +103,7 @@ public class Radio : Simulator
 
 
         ControladorSonidos.Instance.PlaySoundGlobal( anteriorAudioClip, proximoAudioClip, 
-            ControladorSonidos.ModePlay.play, true,0.3f);
+            ControladorSonidos.ModePlay.play, true,0.1f);
         
         Escuchar();
     }

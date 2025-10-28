@@ -1,0 +1,21 @@
+fileFormatVersion: 2
+guid: cd6d3462cd0f16a41a5d4991f95a6c34
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - panelCarga: {instanceID: 0}
+  - panelAdvertencia: {instanceID: 0}
+  - dropdownNafta: {instanceID: 0}
+  - cantidadText: {instanceID: 0}
+  - botonConfirmar: {instanceID: 0}
+  - botonPorPeso: {instanceID: 0}
+  - botonPorLitro: {instanceID: 0}
+  - botonLlenarTanque: {instanceID: 0}
+  - botonSumar: {instanceID: 0}
+  - botonRestar: {instanceID: 0}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

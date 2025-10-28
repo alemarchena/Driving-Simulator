@@ -47,6 +47,9 @@ public class Balizas : Simulator
                 timer = 0f;
                 Tablero.instance.MostrarBalizas(estadoLuz);
             }
+
+            string mensaje = balizaActiva ? "Encendida" : "Apagada";
+            MessageDisplaySystem.instance.ShowMessage("Baliza " + mensaje, 1f, 0f);
         }
 
         if (balizaActiva)
@@ -60,6 +63,8 @@ public class Balizas : Simulator
                 ReproducirSonido();
             }
         }
+
+       
     }
 
     void ReproducirSonido()

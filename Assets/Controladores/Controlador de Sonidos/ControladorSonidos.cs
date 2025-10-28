@@ -1,22 +1,27 @@
-using UnityEngine;
+ï»¿using UnityEngine;
 using System.Collections.Generic;
 
 public class ControladorSonidos : MonoBehaviour
 {
     public static ControladorSonidos Instance;
-    public enum ModePlay { play,playOneShoot}
-     
-    public int initialPoolSize = 1; 
-    public int maxPoolSize = 10;  
-    private Queue<AudioSource> audioSources; 
+    public enum ModePlay { play, playOneShoot }
+
+    [Header("ðŸŽš ConfiguraciÃ³n de pool")]
+    public int initialPoolSize = 1;
+    public int maxPoolSize = 10;
+
+    [Header("ðŸ”‡ Control desde el editor")]
+    [SerializeField] bool muteFromEditor = false;
+
+    private Queue<AudioSource> audioSources;
+    private Dictionary<AudioSource, float> originalVolumes = new Dictionary<AudioSource, float>();
+    private bool isMuted = false;
 
     void Awake()
     {
-        // Implementar singleton
         if (Instance == null)
         {
             Instance = this;
-            DontDestroyOnLoad(gameObject);
         }
         else
         {
@@ -26,7 +31,6 @@ public class ControladorSonidos : MonoBehaviour
 
     void Start()
     {
-        // Crear el pool inicial de AudioSources
         audioSources = new Queue<AudioSource>();
         for (int i = 0; i < initialPoolSize; i++)
         {
@@ -34,10 +38,19 @@ public class ControladorSonidos : MonoBehaviour
         }
     }
 
-    /// <summary>
-    /// Reproduce un sonido en una posición específica x,y,z, buscando un "Nuevo" AudioSource disponible.
-    /// </summary>
-    /// 
+    void Update()
+    {
+        // ðŸ‘€ Detecta si cambiÃ³ el booleano en el editor
+        if (muteFromEditor && !isMuted)
+        {
+            MuteAll();
+        }
+        else if (!muteFromEditor && isMuted)
+        {
+            RestoreVolume();
+        }
+    }
+
     public void PlaySoundAtPosition(AudioClip clip, Vector3 position, ModePlay mode, bool stopActualClip, float volume)
     {
         if (clip == null) return;
@@ -59,23 +72,15 @@ public class ControladorSonidos : MonoBehaviour
         {
             source = GetAvailableAudioSource();
         }
-        
 
         source.clip = clip;
         source.transform.position = position;
-        source.volume = volume;
+        source.volume = isMuted ? 0 : volume;
         if (mode == ModePlay.playOneShoot) source.PlayOneShot(clip);
         else source.Play();
     }
 
-    /// <summary>
-    /// StopActualClip = true : utiliza un mismo AudioSource para el clip de sonido
-    /// StopActualClip = false : utiliza un nuevo AudioSource para el clip de sonido
-    /// </summary>
-    /// <param name="clip"></param>
-    /// <param name="mode"></param>
-    /// <param name="stopActualClip"></param>
-    public void PlaySoundGlobal(AudioClip clip,ModePlay mode,bool stopActualClip,float volume)
+    public void PlaySoundGlobal(AudioClip clip, ModePlay mode, bool stopActualClip, float volume)
     {
         if (stopActualClip)
         {
@@ -91,28 +96,17 @@ public class ControladorSonidos : MonoBehaviour
         }
         else
         {
-            PlaySoundAtPosition(clip, transform.position, mode,false,volume);
+            PlaySoundAtPosition(clip, transform.position, mode, false, volume);
         }
     }
 
-    /// <summary>
-    /// Detiene un AudioClip inicial y ejecuta un nuevo audio
-    /// </summary>
-    /// <param name="clipOriginal"></param>
-    /// <param name="newClip"></param>
-    /// <param name="mode"></param>
-    /// <param name="stopActualClip"></param>
-    public void PlaySoundGlobal(AudioClip clipOriginal, 
-                                AudioClip newClip, 
-                                ModePlay mode, 
-                                bool stopActualClip,float volume)
+    public void PlaySoundGlobal(AudioClip clipOriginal, AudioClip newClip, ModePlay mode, bool stopActualClip, float volume)
     {
         if (stopActualClip)
         {
             StopAudioSourceWithClip(clipOriginal);
             StopAudioSourceWithClip(newClip);
-            PlaySoundAtPosition(newClip, transform.position, mode,true, volume);
-            
+            PlaySoundAtPosition(newClip, transform.position, mode, true, volume);
         }
         else
         {
@@ -120,53 +114,38 @@ public class ControladorSonidos : MonoBehaviour
         }
     }
 
-    /// <summary>
-    /// Reproduce un sonido en el AudioSource especificado
-    /// </summary>
-    /// <param name="source"></param>
-    /// <param name="clip"></param>
-    /// <param name="position"></param>
-    /// <param name="mode"></param>
-    private void PlaySoundAtPosition(AudioSource source, AudioClip clip, Vector3 position, ModePlay mode,float volume)
+    private void PlaySoundAtPosition(AudioSource source, AudioClip clip, Vector3 position, ModePlay mode, float volume)
     {
         if (clip == null) return;
 
         source.Stop();
         source.clip = clip;
         source.transform.position = position;
-        source.volume = volume;
+        source.volume = isMuted ? 0 : volume;
 
         if (mode == ModePlay.playOneShoot) source.PlayOneShot(clip);
         else source.Play();
     }
 
-    public void SetVolumen(AudioClip clip,float pasoVolumen)
+    public void SetVolumen(AudioClip clip, float pasoVolumen)
     {
         Queue<AudioSource> updatedQueue = new Queue<AudioSource>();
-        AudioSource sourceToreturn = null;
 
         while (audioSources.Count > 0)
         {
             AudioSource source = audioSources.Dequeue();
-
             if (source.isPlaying && source.clip.name == clip.name)
             {
-                source.volume += pasoVolumen;
-                sourceToreturn = source;
+                source.volume = Mathf.Clamp01(source.volume + pasoVolumen);
             }
-
             updatedQueue.Enqueue(source);
         }
 
         audioSources = updatedQueue;
     }
 
-    /// <summary>
-    /// Busca un AudioSource que esté reproduciendo el mismo clip y lo detiene.
-    /// </summary>
     public AudioSource StopAudioSourceWithClip(AudioClip clip)
     {
-        // Usamos una cola temporal para mantener el orden
         Queue<AudioSource> updatedQueue = new Queue<AudioSource>();
         AudioSource sourceToreturn = null;
 
@@ -174,7 +153,6 @@ public class ControladorSonidos : MonoBehaviour
         {
             AudioSource source = audioSources.Dequeue();
 
-            // Si está reproduciendo y el clip es el mismo
             if (source.isPlaying && source.clip.name == clip.name)
             {
                 source.Stop();
@@ -184,41 +162,31 @@ public class ControladorSonidos : MonoBehaviour
             updatedQueue.Enqueue(source);
         }
 
-        // Restaurar el orden original
         audioSources = updatedQueue;
         return sourceToreturn;
     }
 
-    /// <summary>
-    /// Busca un AudioSource disponible, o reutiliza el más antiguo si el pool ha alcanzado el límite.
-    /// </summary>
-    /// <returns>Un AudioSource listo para reproducir</returns>
     private AudioSource GetAvailableAudioSource()
     {
         foreach (AudioSource source in audioSources)
         {
             if (!source.isPlaying)
             {
-                return source; // Retorna el primero disponible
+                return source;
             }
         }
 
-        // Si todos están ocupados y el tamaño máximo no se ha alcanzado, crea uno nuevo
         if (audioSources.Count < maxPoolSize)
         {
             return CreateNewAudioSource();
         }
 
-        // Si el pool está lleno, reutiliza el más antiguo (FIFO)
         AudioSource oldestSource = audioSources.Dequeue();
         oldestSource.Stop();
-        audioSources.Enqueue(oldestSource); // Reinsertar al final de la cola
+        audioSources.Enqueue(oldestSource);
         return oldestSource;
     }
 
-    /// <summary>
-    /// Crea un nuevo AudioSource, lo agrega al pool y retorna.
-    /// </summary>
     private AudioSource CreateNewAudioSource()
     {
         AudioSource newSource = gameObject.AddComponent<AudioSource>();
@@ -226,5 +194,34 @@ public class ControladorSonidos : MonoBehaviour
         newSource.playOnAwake = false;
         audioSources.Enqueue(newSource);
         return newSource;
+    }
+
+    public void MuteAll()
+    {
+        if (isMuted) return;
+        originalVolumes.Clear();
+
+        foreach (AudioSource source in audioSources)
+        {
+            originalVolumes[source] = source.volume;
+            source.volume = 0f;
+        }
+
+        isMuted = true;
+    }
+
+    public void RestoreVolume()
+    {
+        if (!isMuted) return;
+
+        foreach (AudioSource source in audioSources)
+        {
+            if (originalVolumes.ContainsKey(source))
+            {
+                source.volume = originalVolumes[source];
+            }
+        }
+
+        isMuted = false;
     }
 }

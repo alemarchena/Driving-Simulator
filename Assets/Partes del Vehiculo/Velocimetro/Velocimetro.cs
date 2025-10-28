@@ -4,8 +4,9 @@ public class Velocimetro : Simulator
 {
     [SerializeField] Creadores creador = Creadores.Alejandro_Marchena;
     [SerializeField] Motor motor;
-    [SerializeField] private float anguloMin = -20f;
+    [SerializeField] private float anguloMin = 0f;
     [SerializeField] private float anguloMax = 200f;
+
     private void Start()
     {
         AsignarCreador(creador);

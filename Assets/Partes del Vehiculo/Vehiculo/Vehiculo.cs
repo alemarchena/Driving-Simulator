@@ -31,7 +31,7 @@ public class Vehiculo : Simulator
     [Space]
     [Header("Giro de las agujas")]
     [SerializeField] private float velocidadMaxima = 200f;
-    [SerializeField] private float anguloMin = -20f;
+    [SerializeField] private float anguloMin = 0f;
     [SerializeField] private float anguloMax = 200f;
 
     [Space]
@@ -187,7 +187,11 @@ public class Vehiculo : Simulator
         {
             float giro = direccion * intensidadGiro * Time.fixedDeltaTime;
             Quaternion rotacion = Quaternion.Euler(0f, giro, 0f);
-            rb.MoveRotation(rb.rotation * rotacion);
+
+            Quaternion nuevaRotacion = rb.rotation * rotacion;
+            nuevaRotacion = Quaternion.Normalize(nuevaRotacion);
+
+            rb.MoveRotation(nuevaRotacion);
         }
 
         // Aplicar inclinación (body roll)
@@ -208,7 +212,7 @@ public class Vehiculo : Simulator
 
             float torqueCorreccion = -anguloRoll * fuerzaInclinacion * factorSuavizadoInclinacion;
 
-            rb.AddTorque(transform.forward * torqueCorreccion, ForceMode.Force);
+            rb.AddTorque(transform.forward * torqueCorreccion , ForceMode.Force);
         }
 
 

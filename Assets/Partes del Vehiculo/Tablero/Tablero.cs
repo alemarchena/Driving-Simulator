@@ -105,7 +105,7 @@ public class Tablero : MonoBehaviour
 
     public void MostrarRPM(float angulo)
     {
-        agujaRPM.transform.localRotation = Quaternion.Euler(0f, 0f, angulo);
+        agujaRPM.transform.localRotation = Quaternion.Euler(0f, 0f, angulo );
     }
 
     public void MostrarRadio(string nombre)

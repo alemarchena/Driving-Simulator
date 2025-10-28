@@ -27,7 +27,7 @@ public class Motor : Simulator
 
 
     [Space]
-    [SerializeField] private float[] relacionesDeMarcha = { 3.5f, 2.2f, 1.5f, 1.0f, 0.85f, 0.7f }; // Para 6 marchas
+    [SerializeField] private float[] relacionesDeMarcha = {5f, 6f, 8f, 10f, 12f, 14f }; // Para 6 marchas
     
     [Space]
     [SerializeField] private float relacionRetroceso = -3.0f;
@@ -98,8 +98,17 @@ public class Motor : Simulator
 
         modificadorDeMasa = palanca.MarchaActual == ParteSubParte.SubParte.Reversa ? true: false ;
         
+        if(GameOverManager.instance.IsGameOver && motorEncendido) {
+            ApagarMotor();    
+        }
     }
 
+    public void ApagarMotor()
+    {
+        if (motorEncendido) { 
+            motorEncendido = false;
+        }
+    }
     public float ConsumoCombustible
     {
         get { return consumoCombustible * ( rpmActual / ( rpmMaxima * 10000 )); }

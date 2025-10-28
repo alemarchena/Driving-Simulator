@@ -131,10 +131,7 @@ public class Freno : MonoBehaviour
 
     public void MostrarEstado()
     {
-        //string estado = FrenoDeManoActivo ? "Freno de Mano Activado" : (Frenado ? "Frenando" : "Libre");
         Tablero.instance.MostrarFrenoDeMano(frenoDeManoActivo);
-        //Debug.Log($"Estado del freno: {estado}, Cantidad de Frenado: {cantidadFrenado:F2}, " +
-        //          $"Durabilidad: {durabilidadFreno:F2}%, Temperatura: {temperaturaFreno:F2}°C");
     }
 
     public float ObtenerCantidadFrenado()

@@ -4,6 +4,7 @@ public class DetectorGolpes : MonoBehaviour
 {
     [Header("Sonidos")]
     [SerializeField] AudioClip audioGolpe;
+    [SerializeField] Motor motor;
 
     public Transform objetivo; // arrastra aquí el coche o parte del coche
 
@@ -18,9 +19,15 @@ public class DetectorGolpes : MonoBehaviour
         if (other.gameObject.layer == LayerMask.NameToLayer("Vehiculo"))
             return;
 
-        if (audioGolpe != null)
+        if (audioGolpe != null && motor != null)
         {
-            ControladorSonidos.Instance.PlaySoundGlobal(audioGolpe, ControladorSonidos.ModePlay.play, false, 0.3f);
+            if (motor.MotorEncendido)
+            {
+                ControladorSonidos.Instance.PlaySoundGlobal(audioGolpe, ControladorSonidos.ModePlay.play, false, 0.3f);
+            }
+        }else
+        {
+            Debug.LogWarning("Falta asignar el audio de golpe o el Motor al Detector de Golpes");
         }
     }
    

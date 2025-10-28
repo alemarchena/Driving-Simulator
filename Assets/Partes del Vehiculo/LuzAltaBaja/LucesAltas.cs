@@ -7,6 +7,10 @@ public class LucesAltas : Simulator
     [SerializeField] private Creadores creadores;
     private bool lucesAltasEncendidas = false;
 
+
+    public bool LucesAltasEncendidas {
+        get{ return lucesAltasEncendidas;}
+    }
     void Start()
     {
         AsignarCreador(creadores);
@@ -25,6 +29,9 @@ public class LucesAltas : Simulator
         {
             lucesAltasEncendidas = !lucesAltasEncendidas;
             Tablero.instance.MostrarLuzAlta(lucesAltasEncendidas);
+
+            string mensaje = lucesAltasEncendidas ? "Encendida" : "Apagada";
+            MessageDisplaySystem.instance.ShowMessage("Luz alta " + mensaje, 1f, 0f);
         }
     }
 }

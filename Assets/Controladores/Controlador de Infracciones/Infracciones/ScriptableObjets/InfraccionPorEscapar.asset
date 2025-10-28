@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: InfraccionPorEscapar
   m_EditorClassIdentifier: 
   infraccion:
-    nombre: 
+    nombre: No detenerse ante la autoridad
     descripcion: "Ley Nacional de Tr\xE1nsito (N.\xBA 24.449)\nArt\xEDculo 72 inc.
       a y b \u2014 El conductor debe detenerse ante la se\xF1al de detenci\xF3n de
       la autoridad.\n\n\U0001F539 Si no lo hace, puede considerarse una falta grave
@@ -28,4 +28,4 @@ MonoBehaviour:
     monto: 5000
     imagenInfraccion: {fileID: 21300000, guid: f0c78913b8ddde546837b9fec4d59e5b, type: 3}
     gestoInfraccion: {fileID: 21300000, guid: f0c78913b8ddde546837b9fec4d59e5b, type: 3}
-  clip: {fileID: 8300000, guid: 688ae9c1a313681428a5df67dbb0c8cc, type: 3}
+  clip: {fileID: 8300000, guid: 3ab8e485f8b5c8b4aa53c4d86505cc99, type: 3}

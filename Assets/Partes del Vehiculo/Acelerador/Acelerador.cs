@@ -7,7 +7,7 @@ public class Acelerador : Simulator
 
     private float MaxAceleracion = 1.0f;
     private float MinAceleracion = 0.0f;
-    [SerializeField] private float tasaIncremento = 0.05f; // Por segundo
+    private float tasaIncremento = 0.05f; // Por segundo
     [SerializeField] private float tasaDecremento = 1.0f; // Por segundo
     [SerializeField] private Creadores creadores = Creadores.Diaz_Corvalan_Matias_Federico;
 
